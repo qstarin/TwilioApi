@@ -58,6 +58,7 @@
     <Compile Include="Model\Call.cs" />
     <Compile Include="Model\CallList.cs" />
     <Compile Include="Model\CallListRequest.cs" />
+    <Compile Include="Model\CallOptions.cs" />
     <Compile Include="Model\ComparisonType.cs" />
     <Compile Include="Model\Conference.cs" />
     <Compile Include="Model\ConferenceList.cs" />

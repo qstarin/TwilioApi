@@ -92,23 +92,31 @@ namespace Twilio
 			return Execute<Call>(request);
 		}
 
-		public Call InitiateOutboundCall(string caller, string called, string url, string httpMethod, string sendDigits, IfMachine? ifMachine, int? timeout) {
-			Require.Argument("Caller", caller);
-			Require.Argument("Called", called);
-			Require.Argument("Url", url);
+		public Call InitiateOutboundCall(string caller, string called, string url) {
+			return InitiateOutboundCall(new CallOptions {
+												Caller = caller,
+												Called = called,
+												Url = url
+			                                });
+		}
+
+		public Call InitiateOutboundCall(CallOptions options) {
+			Require.Argument("Caller", options.Caller);
+			Require.Argument("Called", options.Called);
+			Require.Argument("Url", options.Url);
 
 			var request = new RestRequest(Method.POST);
 			request.ActionFormat = "Accounts/{AccountSid}/Calls";
 			request.RootElement = "Calls";
 
-			request.AddParameter("Caller", caller);
-			request.AddParameter("Called", called);
-			request.AddParameter("Url", url);
+			request.AddParameter("Caller", options.Caller);
+			request.AddParameter("Called", options.Called);
+			request.AddParameter("Url", options.Url);
 
-			if (httpMethod.HasValue()) request.AddParameter("Method", httpMethod);
-			if (sendDigits.HasValue()) request.AddParameter("SendDigits", sendDigits);
-			if (ifMachine.HasValue) request.AddParameter("IfMachine", ifMachine.Value);
-			if (timeout.HasValue) request.AddParameter("Timeout", timeout.Value);
+			if (options.Method.HasValue) request.AddParameter("Method", options.Method);
+			if (options.SendDigits.HasValue()) request.AddParameter("SendDigits", options.SendDigits);
+			if (options.IfMachine.HasValue) request.AddParameter("IfMachine", options.IfMachine.Value);
+			if (options.Timeout.HasValue) request.AddParameter("Timeout", options.Timeout.Value);
 
 			return Execute<Call>(request);
 		}
