@@ -51,6 +51,10 @@ namespace Twilio
 			return Execute<SmsMessageList>(request);
 		}
 
+		public SmsMessage SendSmsMessage(string from, string to, string body) {
+			return SendSmsMessage(from, to, body, null);
+		}
+
 		public SmsMessage SendSmsMessage(string from, string to, string body, string statusCallback) {
 			Validate.IsValidLength(body, 160);
 			Require.Argument("from", from);
