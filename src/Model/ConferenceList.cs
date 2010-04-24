@@ -18,8 +18,13 @@ using System.Collections.Generic;
 
 namespace Twilio.Model
 {
-	public class ConferenceList : TwilioListBase
+	public class ConferenceResult
 	{
-		public List<Conference> Conferences { get; set; }
+		public ConferenceList Conferences { get; set; }
+	}
+
+	public class ConferenceList : TwilioListBase<Conference>
+	{
+
 	}
 }

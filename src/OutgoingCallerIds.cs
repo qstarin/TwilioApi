@@ -32,21 +32,21 @@ namespace Twilio
 			return Execute<OutgoingCallerId>(request);
 		}
 
-		public OutgoingCallerIdList GetOutgoingCallerIds() {
+		public OutgoingCallerIdResult GetOutgoingCallerIds() {
 			return GetOutgoingCallerIds(null, null, null, null);
 		}
 
-		public OutgoingCallerIdList GetOutgoingCallerIds(string phoneNumber, string friendlyName, int? pageNumber, int? count) {
+		public OutgoingCallerIdResult GetOutgoingCallerIds(string phoneNumber, string friendlyName, int? pageNumber, int? count) {
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/OutgoingCallerIds";
-			request.RootElement = "OutgoingCallerIds";
+			//request.RootElement = "OutgoingCallerIds";
 
 			if (phoneNumber.HasValue()) request.AddParameter("PhoneNumber", phoneNumber);
 			if (friendlyName.HasValue()) request.AddParameter("FriendlyName", friendlyName);
 			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
 			if (count.HasValue) request.AddParameter("num", count.Value);
 
-			return Execute<OutgoingCallerIdList>(request);
+			return Execute<OutgoingCallerIdResult>(request);
 		}
 
 		public ValidationRequest AddOutgoingCallerId(string phoneNumber, string friendlyName, int? callDelay) {

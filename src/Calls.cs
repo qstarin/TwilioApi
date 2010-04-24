@@ -23,18 +23,18 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public CallList GetCalls() {
+		public CallResult GetCalls() {
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Calls";
-			request.RootElement = "Calls";
+			//request.RootElement = "Calls";
 
-			return Execute<CallList>(request);
+			return Execute<CallResult>(request);
 		}
 
-		public CallList GetCalls(CallListRequest options) {
+		public CallResult GetCalls(CallListRequest options) {
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Calls";
-			request.RootElement = "Calls";
+			//request.RootElement = "Calls";
 
 			if (options.Called.HasValue()) request.AddParameter("Called", options.Called);
 			if (options.Caller.HasValue()) request.AddParameter("Caller", options.Caller);
@@ -51,7 +51,7 @@ namespace Twilio
 			if (options.Count.HasValue) request.AddParameter("num", options.Count.Value);
 			if (options.PageNumber.HasValue) request.AddParameter("page", options.PageNumber.Value);
 
-			return Execute<CallList>(request);
+			return Execute<CallResult>(request);
 		}
 
 		public Call GetCall(string callSid) {
@@ -64,21 +64,21 @@ namespace Twilio
 			return Execute<Call>(request);
 		}
 
-		public CallList GetCallSegments(string callSid) {
+		public CallResult GetCallSegments(string callSid) {
 			return GetCallSegments(callSid, null, null);
 		}
 
-		public CallList GetCallSegments(string callSid, int? pageNumber, int? count) {
+		public CallResult GetCallSegments(string callSid, int? pageNumber, int? count) {
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Calls/{CallSid}/Segments";
-			request.RootElement = "Calls";
+			//request.RootElement = "Calls";
 
 			request.AddParameter("CallSid", callSid, ParameterType.UrlSegment);
 
 			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
 			if (count.HasValue) request.AddParameter("num", count.Value);
 
-			return Execute<CallList>(request);
+			return Execute<CallResult>(request);
 		}
 
 		public Call GetCallSegment(string callSid, string callSegmentSid) {

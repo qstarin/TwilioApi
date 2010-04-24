@@ -33,14 +33,14 @@ namespace Twilio
 			return Execute<SmsMessage>(request);
 		}
 
-		public SmsMessageList GetSmsMessages() {
+		public SmsMessageResult GetSmsMessages() {
 			return GetSmsMessages(null, null, null, null, null);
 		}
 
-		public SmsMessageList GetSmsMessages(string to, string from, DateTime? dateSent, int? pageNumber, int? count) {
+		public SmsMessageResult GetSmsMessages(string to, string from, DateTime? dateSent, int? pageNumber, int? count) {
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/SMS/Messages";
-			request.RootElement = "SMSMessages";
+			//request.RootElement = "SMSMessages";
 
 			if (to.HasValue()) request.AddParameter("To", to);
 			if (from.HasValue()) request.AddParameter("From", from);
@@ -48,7 +48,7 @@ namespace Twilio
 			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
 			if (count.HasValue) request.AddParameter("num", count.Value);
 
-			return Execute<SmsMessageList>(request);
+			return Execute<SmsMessageResult>(request);
 		}
 
 		public SmsMessage SendSmsMessage(string from, string to, string body) {

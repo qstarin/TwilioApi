@@ -18,8 +18,14 @@ using System.Collections.Generic;
 
 namespace Twilio.Model
 {
-	public class OutgoingCallerIdList : TwilioListBase
+	public class OutgoingCallerIdResult
 	{
-		public List<OutgoingCallerId> OutgoingCallerIds { get; set; }
+		public OutgoingCallerIdList OutgoingCallerIds { get; set; }
 	}
+
+	public class OutgoingCallerIdList : TwilioListBase<OutgoingCallerId>
+	{
+
+	}
+
 }

@@ -23,21 +23,21 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public RecordingList GetRecordings() {
+		public RecordingResult GetRecordings() {
 			return GetRecordings(null, null, null, null);
 		}
 
-		public RecordingList GetRecordings(string callSid, DateTime? dateCreated, int? pageNumber, int? count) {
+		public RecordingResult GetRecordings(string callSid, DateTime? dateCreated, int? pageNumber, int? count) {
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Recordings";
-			request.RootElement = "Recordings";
+			//request.RootElement = "Recordings";
 
 			if (callSid.HasValue()) request.AddParameter("CallSid", callSid);
 			if (dateCreated.HasValue) request.AddParameter("DateCreated", dateCreated.Value.ToString("yyyy-MM-dd"));
 			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
 			if (count.HasValue) request.AddParameter("num", count.Value);
 
-			return Execute<RecordingList>(request);
+			return Execute<RecordingResult>(request);
 		}
 
 		public Recording GetRecording(string recordingSid) {

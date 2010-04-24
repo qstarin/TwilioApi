@@ -18,8 +18,13 @@ using System.Collections.Generic;
 
 namespace Twilio.Model
 {
-	public class SmsMessageList : TwilioListBase
+	public class SmsMessageResult
 	{
-		public List<SmsMessage> SmsMessages { get; set; }
+		public SmsMessageList SmsMessages { get; set; }
+	}
+
+	public class SmsMessageList : TwilioListBase<SmsMessage>
+	{
+
 	}
 }

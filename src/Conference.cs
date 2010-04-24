@@ -22,18 +22,18 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public ConferenceList GetConferences() {
+		public ConferenceResult GetConferences() {
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Conferences";
-			request.RootElement = "Conferences";
+			//request.RootElement = "Conferences";
 
-			return Execute<ConferenceList>(request);
+			return Execute<ConferenceResult>(request);
 		}
 
-		public ConferenceList GetConferences(ConferenceListRequest options) {
+		public ConferenceResult GetConferences(ConferenceListRequest options) {
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Conferences";
-			request.RootElement = "Conferences";
+			//request.RootElement = "Conferences";
 
 			if (options.Status.HasValue) request.AddParameter("Status", options.Status);
 			if (options.FriendlyName.HasValue()) request.AddParameter("FriendlyName", options.FriendlyName);
@@ -47,7 +47,7 @@ namespace Twilio
 			if (options.Count.HasValue) request.AddParameter("num", options.Count.Value);
 			if (options.PageNumber.HasValue) request.AddParameter("page", options.PageNumber.Value);
 
-			return Execute<ConferenceList>(request);
+			return Execute<ConferenceResult>(request);
 		}
 
 		public Conference GetConference(string conferenceSid) {
@@ -60,14 +60,14 @@ namespace Twilio
 			return Execute<Conference>(request);
 		}
 
-		public ParticipantList GetConferenceParticipants(string conferenceSid, bool? muted) {
+		public ParticipantResult GetConferenceParticipants(string conferenceSid, bool? muted) {
 			return GetConferenceParticipants(conferenceSid, muted, null, null);
 		}
 
-		public ParticipantList GetConferenceParticipants(string conferenceSid, bool? muted, int? pageNumber, int? count) {
+		public ParticipantResult GetConferenceParticipants(string conferenceSid, bool? muted, int? pageNumber, int? count) {
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants";
-			request.RootElement = "Participants";
+			//request.RootElement = "Participants";
 
 			request.AddParameter("ConferenceSid", conferenceSid);
 			if (muted.HasValue) request.AddParameter("Muted", muted.Value);
@@ -75,7 +75,7 @@ namespace Twilio
 			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
 			if (count.HasValue) request.AddParameter("num", count.Value);
 
-			return Execute<ParticipantList>(request);
+			return Execute<ParticipantResult>(request);
 		}
 
 		public Participant GetConferenceParticipant(string conferenceSid, string callSid) {

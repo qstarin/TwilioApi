@@ -14,9 +14,21 @@
 //   limitations under the License. 
 #endregion
 
+using System.Collections.Generic;
+
 namespace Twilio.Model
 {
-	public abstract class TwilioListBase : TwilioBase
+	//public abstract class TwilioListBase : TwilioBase
+	//{
+	//    public int Page { get; set; }
+	//    public int NumPages { get; set; }
+	//    public int PageSize { get; set; }
+	//    public int Total { get; set; }
+	//    public int Start { get; set; }
+	//    public int End { get; set; }
+	//}
+
+	public class TwilioListBase<T> : List<T>
 	{
 		public int Page { get; set; }
 		public int NumPages { get; set; }

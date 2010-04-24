@@ -33,21 +33,21 @@ namespace Twilio
 			return Execute<Notification>(request);
 		}
 
-		public NotificationList GetNotifications() {
+		public NotificationResult GetNotifications() {
 			return GetNotifications(null, null, null, null);
 		}
 
-		public NotificationList GetNotifications(int? log, DateTime? messageDate, int? pageNumber, int? count) {
+		public NotificationResult GetNotifications(int? log, DateTime? messageDate, int? pageNumber, int? count) {
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Notifications";
-			request.RootElement = "Notifications";
+			//request.RootElement = "Notifications";
 
 			if (log.HasValue) request.AddParameter("Log", log);
 			if (messageDate.HasValue) request.AddParameter("MessageDate", messageDate.Value.ToString("yyyy-MM-dd"));
 			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
 			if (count.HasValue) request.AddParameter("num", count.Value);
 
-			return Execute<NotificationList>(request);
+			return Execute<NotificationResult>(request);
 		}
 
 		public RestResponse DeleteNotification(string notificationSid) {

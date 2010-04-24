@@ -21,18 +21,18 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public TranscriptionList GetTranscriptions() {
+		public TranscriptionResult GetTranscriptions() {
 			return GetTranscriptions(null, null);
 		}
 
-		public TranscriptionList GetTranscriptions(int? pageNumber, int? count) {
+		public TranscriptionResult GetTranscriptions(int? pageNumber, int? count) {
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Transcriptions";
-			request.RootElement = "Transcriptions";
+			//request.RootElement = "Transcriptions";
 			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
 			if (count.HasValue) request.AddParameter("num", count.Value);
 
-			return Execute<TranscriptionList>(request);
+			return Execute<TranscriptionResult>(request);
 		}
 
 		public Transcription GetTranscription(string recordingSid, string transcriptionSid) {

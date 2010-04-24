@@ -33,14 +33,14 @@ namespace Twilio
 			return Execute<IncomingPhoneNumber>(request);
 		}
 
-		public IncomingPhoneNumberList GetIncomingPhoneNumbers() {
+		public IncomingPhoneNumberResult GetIncomingPhoneNumbers() {
 			return GetIncomingPhoneNumbers(null, null, null, null);
 		}
 
-		public IncomingPhoneNumberList GetIncomingPhoneNumbers(string phoneNumber, string friendlyName, int? pageNumber, int? count) {
+		public IncomingPhoneNumberResult GetIncomingPhoneNumbers(string phoneNumber, string friendlyName, int? pageNumber, int? count) {
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/IncomingPhoneNumbers";
-			request.RootElement = "IncomingPhoneNumbers";
+			//request.RootElement = "IncomingPhoneNumbers";
 
 			if (phoneNumber.HasValue()) request.AddParameter("PhoneNumber", phoneNumber);
 			if (friendlyName.HasValue()) request.AddParameter("FriendlyName", friendlyName);
@@ -48,15 +48,15 @@ namespace Twilio
 			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
 			if (count.HasValue) request.AddParameter("num", count.Value);
 
-			return Execute<IncomingPhoneNumberList>(request);
+			return Execute<IncomingPhoneNumberResult>(request);
 		}
 
-		public IncomingPhoneNumberList GetLocalIncomingPhoneNumbers() {
+		public IncomingPhoneNumberResult GetLocalIncomingPhoneNumbers() {
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/IncomingPhoneNumbers/Local";
 			request.RootElement = "IncomingPhoneNumbers";
 
-			return Execute<IncomingPhoneNumberList>(request);
+			return Execute<IncomingPhoneNumberResult>(request);
 		}
 
 		public IncomingPhoneNumber AddLocalPhoneNumber(PhoneNumberOptions options) {
@@ -70,12 +70,12 @@ namespace Twilio
 			return Execute<IncomingPhoneNumber>(request);
 		}
 
-		public IncomingPhoneNumberList GetTollFreeIncomingPhoneNumbers() {
+		public IncomingPhoneNumberResult GetTollFreeIncomingPhoneNumbers() {
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree";
 			request.RootElement = "IncomingPhoneNumbers";
 
-			return Execute<IncomingPhoneNumberList>(request);
+			return Execute<IncomingPhoneNumberResult>(request);
 		}
 
 		public IncomingPhoneNumber AddTollFreePhoneNumber(PhoneNumberOptions options) {

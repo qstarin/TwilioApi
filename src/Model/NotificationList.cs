@@ -18,8 +18,14 @@ using System.Collections.Generic;
 
 namespace Twilio.Model
 {
-	public class NotificationList : TwilioListBase
+	public class NotificationResult
 	{
-		public List<Notification> Notifications { get; set; }
+		public NotificationList Notifications { get; set; }
 	}
+
+	public class NotificationList : TwilioListBase<Notification>
+	{
+		
+	}
+
 }
