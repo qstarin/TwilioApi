@@ -27,7 +27,7 @@ namespace Twilio
 
 		public TranscriptionList GetTranscriptions(int? pageNumber, int? count) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/Transcriptions";
+			request.Resource = "Accounts/{AccountSid}/Transcriptions";
 			request.RootElement = "Transcriptions";
 			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
 			if (count.HasValue) request.AddParameter("num", count.Value);
@@ -37,7 +37,7 @@ namespace Twilio
 
 		public Transcription GetTranscription(string recordingSid, string transcriptionSid) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{TranscriptionSid}";
+			request.Resource = "Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{TranscriptionSid}";
 			request.RootElement = "Transcription";
 			request.AddParameter("RecordingSid", recordingSid, ParameterType.UrlSegment);
 

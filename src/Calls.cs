@@ -25,7 +25,7 @@ namespace Twilio
 	{
 		public CallList GetCalls() {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/Calls";
+			request.Resource = "Accounts/{AccountSid}/Calls";
 			request.RootElement = "Calls";
 
 			return Execute<CallList>(request);
@@ -33,7 +33,7 @@ namespace Twilio
 
 		public CallList GetCalls(CallListRequest options) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/Calls";
+			request.Resource = "Accounts/{AccountSid}/Calls";
 			request.RootElement = "Calls";
 
 			if (options.Called.HasValue()) request.AddParameter("Called", options.Called);
@@ -56,7 +56,7 @@ namespace Twilio
 
 		public Call GetCall(string callSid) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/Calls/{CallSid}";
+			request.Resource = "Accounts/{AccountSid}/Calls/{CallSid}";
 			request.RootElement = "Call";
 
 			request.AddParameter("CallSid", callSid, ParameterType.UrlSegment);
@@ -70,7 +70,7 @@ namespace Twilio
 
 		public CallList GetCallSegments(string callSid, int? pageNumber, int? count) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/Calls/{CallSid}/Segments";
+			request.Resource = "Accounts/{AccountSid}/Calls/{CallSid}/Segments";
 			request.RootElement = "Calls";
 
 			request.AddParameter("CallSid", callSid, ParameterType.UrlSegment);
@@ -83,7 +83,7 @@ namespace Twilio
 
 		public Call GetCallSegment(string callSid, string callSegmentSid) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/Calls/{CallSid}/Segments/{CallSegmentSid}";
+			request.Resource = "Accounts/{AccountSid}/Calls/{CallSid}/Segments/{CallSegmentSid}";
 			request.RootElement = "Call";
 
 			request.AddParameter("CallSid", callSid, ParameterType.UrlSegment);
@@ -106,7 +106,7 @@ namespace Twilio
 			Require.Argument("Url", options.Url);
 
 			var request = new RestRequest(Method.POST);
-			request.ActionFormat = "Accounts/{AccountSid}/Calls";
+			request.Resource = "Accounts/{AccountSid}/Calls";
 			request.RootElement = "Calls";
 
 			request.AddParameter("Caller", options.Caller);
@@ -126,7 +126,7 @@ namespace Twilio
 			Require.Argument("CurrentUrl", currentUrl);
 
 			var request = new RestRequest(Method.POST);
-			request.ActionFormat = "Accounts/{AccountSid}/Calls/{CallSid}";
+			request.Resource = "Accounts/{AccountSid}/Calls/{CallSid}";
 			request.RootElement = "Call";
 
 			request.AddParameter("CallSid", callSid, ParameterType.UrlSegment);

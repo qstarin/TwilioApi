@@ -23,7 +23,7 @@ namespace Twilio
 	{
 		public Account GetAccount() {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}";
+			request.Resource = "Accounts/{AccountSid}";
 			request.RootElement = "Account";
 
 			return Execute<Account>(request);
@@ -31,7 +31,7 @@ namespace Twilio
 
 		public Account UpdateAccountName(string friendlyName) {
 			var request = new RestRequest(Method.POST);
-			request.ActionFormat = "Accounts/{AccountSid}";
+			request.Resource = "Accounts/{AccountSid}";
 			request.RootElement = "Account";
 			request.AddParameter("FriendlyName", friendlyName);
 

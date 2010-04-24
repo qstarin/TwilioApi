@@ -29,7 +29,7 @@ namespace Twilio
 
 		public RecordingList GetRecordings(string callSid, DateTime? dateCreated, int? pageNumber, int? count) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/Recordings";
+			request.Resource = "Accounts/{AccountSid}/Recordings";
 			request.RootElement = "Recordings";
 
 			if (callSid.HasValue()) request.AddParameter("CallSid", callSid);
@@ -42,7 +42,7 @@ namespace Twilio
 
 		public Recording GetRecording(string recordingSid) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/Recordings/{RecordingSid}.xml";
+			request.Resource = "Accounts/{AccountSid}/Recordings/{RecordingSid}.xml";
 			request.RootElement = "Recording";
 
 			request.AddParameter("RecordingSid", recordingSid, ParameterType.UrlSegment);
@@ -52,7 +52,7 @@ namespace Twilio
 
 		public RestResponse DeleteRecording(string recordingSid) {
 			var request = new RestRequest(Method.DELETE);
-			request.ActionFormat = "Accounts/{AccountSid}/Recordings/{RecordingSid}.xml";
+			request.Resource = "Accounts/{AccountSid}/Recordings/{RecordingSid}.xml";
 			request.RootElement = "Recording";
 
 			request.AddParameter("RecordingSid", recordingSid, ParameterType.UrlSegment);

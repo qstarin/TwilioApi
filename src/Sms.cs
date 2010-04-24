@@ -26,7 +26,7 @@ namespace Twilio
 	{
 		public SmsMessage GetSmsMessage(string smsMessageSid) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/SMS/Messages/{SMSMessageSid}";
+			request.Resource = "Accounts/{AccountSid}/SMS/Messages/{SMSMessageSid}";
 			request.RootElement = "SMSMessage";
 			request.AddParameter("SMSMessageSid", smsMessageSid);
 
@@ -39,7 +39,7 @@ namespace Twilio
 
 		public SmsMessageList GetSmsMessages(string to, string from, DateTime? dateSent, int? pageNumber, int? count) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/SMS/Messages";
+			request.Resource = "Accounts/{AccountSid}/SMS/Messages";
 			request.RootElement = "SMSMessages";
 
 			if (to.HasValue()) request.AddParameter("To", to);
@@ -62,7 +62,7 @@ namespace Twilio
 			Require.Argument("body", body);
 
 			var request = new RestRequest(Method.POST);
-			request.ActionFormat = "Accounts/{AccountSid}/SMS/Messages";
+			request.Resource = "Accounts/{AccountSid}/SMS/Messages";
 			request.AddParameter("From", from);
 			request.AddParameter("To", to);
 			request.AddParameter("Body", body);

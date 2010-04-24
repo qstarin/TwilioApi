@@ -35,7 +35,8 @@ namespace Twilio
 			client.Authenticator = new HttpBasicAuthenticator(_accountSid, _secretKey);
 			client.BaseUrl = BaseUrl;
 			request.AddParameter("AccountSid", _accountSid, ParameterType.UrlSegment);
-			return client.Execute<T>(request);
+			var response = client.Execute<T>(request);
+			return response.Data;
 		}
 
 		public RestResponse Execute(RestRequest request) {

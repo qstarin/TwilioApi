@@ -25,7 +25,7 @@ namespace Twilio
 	{
 		public OutgoingCallerId GetOutgoingCallerId(string outgoingCallerIdSid) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/OutgoingCallerIds/{OutgoingCallerIdSid}";
+			request.Resource = "Accounts/{AccountSid}/OutgoingCallerIds/{OutgoingCallerIdSid}";
 			request.RootElement = "OutgoingCallerId";
 			request.AddParameter("OutgoingCallerIdSid", outgoingCallerIdSid, ParameterType.UrlSegment);
 
@@ -38,7 +38,7 @@ namespace Twilio
 
 		public OutgoingCallerIdList GetOutgoingCallerIds(string phoneNumber, string friendlyName, int? pageNumber, int? count) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/OutgoingCallerIds";
+			request.Resource = "Accounts/{AccountSid}/OutgoingCallerIds";
 			request.RootElement = "OutgoingCallerIds";
 
 			if (phoneNumber.HasValue()) request.AddParameter("PhoneNumber", phoneNumber);
@@ -54,7 +54,7 @@ namespace Twilio
 			if (callDelay.HasValue) Validate.IsBetween(callDelay.Value, 0, 60);
 
 			var request = new RestRequest(Method.POST);
-			request.ActionFormat = "Accounts/{AccountSid}/OutgoingCallerIds";
+			request.Resource = "Accounts/{AccountSid}/OutgoingCallerIds";
 			request.RootElement = "ValidationRequest";
 			request.AddParameter("PhoneNumber", phoneNumber);
 
@@ -70,7 +70,7 @@ namespace Twilio
 			Validate.IsValidLength(friendlyName, 64);
 
 			var request = new RestRequest(Method.POST);
-			request.ActionFormat = "Accounts/{AccountSid}/OutgoingCallerIds/{OutgoingCallerIdSid}";
+			request.Resource = "Accounts/{AccountSid}/OutgoingCallerIds/{OutgoingCallerIdSid}";
 			request.RootElement = "OutgoingCallerId";
 
 			request.AddParameter("OutgoingCallerIdSid", outgoingCallerIdSid, ParameterType.UrlSegment);
@@ -82,7 +82,7 @@ namespace Twilio
 		public RestResponse DeleteOutgoingCallerId(string outgoingCallerIdSid) {
 			Require.Argument("OutgoingCallerIdSid", outgoingCallerIdSid);
 			var request = new RestRequest(Method.DELETE);
-			request.ActionFormat = "Accounts/{AccountSid}/OutgoingCallerIds/{OutgoingCallerIdSid}";
+			request.Resource = "Accounts/{AccountSid}/OutgoingCallerIds/{OutgoingCallerIdSid}";
 
 			request.AddParameter("OutgoingCallerIdSid", outgoingCallerIdSid, ParameterType.UrlSegment);
 

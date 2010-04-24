@@ -25,7 +25,7 @@ namespace Twilio
 	{
 		public IncomingPhoneNumber GetIncomingPhoneNumber(string incomingPhoneNumberSid) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/IncomingPhoneNumbers/{IncomingPhoneNumberSid}";
+			request.Resource = "Accounts/{AccountSid}/IncomingPhoneNumbers/{IncomingPhoneNumberSid}";
 			request.RootElement = "IncomingPhoneNumber";
 
 			request.AddParameter("IncomingPhoneNumberSid", incomingPhoneNumberSid, ParameterType.UrlSegment);
@@ -39,7 +39,7 @@ namespace Twilio
 
 		public IncomingPhoneNumberList GetIncomingPhoneNumbers(string phoneNumber, string friendlyName, int? pageNumber, int? count) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/IncomingPhoneNumbers";
+			request.Resource = "Accounts/{AccountSid}/IncomingPhoneNumbers";
 			request.RootElement = "IncomingPhoneNumbers";
 
 			if (phoneNumber.HasValue()) request.AddParameter("PhoneNumber", phoneNumber);
@@ -53,7 +53,7 @@ namespace Twilio
 
 		public IncomingPhoneNumberList GetLocalIncomingPhoneNumbers() {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/IncomingPhoneNumbers/Local";
+			request.Resource = "Accounts/{AccountSid}/IncomingPhoneNumbers/Local";
 			request.RootElement = "IncomingPhoneNumbers";
 
 			return Execute<IncomingPhoneNumberList>(request);
@@ -61,7 +61,7 @@ namespace Twilio
 
 		public IncomingPhoneNumber AddLocalPhoneNumber(PhoneNumberOptions options) {
 			var request = new RestRequest(Method.POST);
-			request.ActionFormat = "Accounts/{AccountSid}/IncomingPhoneNumbers/Local";
+			request.Resource = "Accounts/{AccountSid}/IncomingPhoneNumbers/Local";
 			request.RootElement = "IncomingPhoneNumber";
 
 			AddPhoneNumberOptionsToRequest(request, options);
@@ -72,7 +72,7 @@ namespace Twilio
 
 		public IncomingPhoneNumberList GetTollFreeIncomingPhoneNumbers() {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree";
+			request.Resource = "Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree";
 			request.RootElement = "IncomingPhoneNumbers";
 
 			return Execute<IncomingPhoneNumberList>(request);
@@ -80,7 +80,7 @@ namespace Twilio
 
 		public IncomingPhoneNumber AddTollFreePhoneNumber(PhoneNumberOptions options) {
 			var request = new RestRequest(Method.POST);
-			request.ActionFormat = "Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree";
+			request.Resource = "Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree";
 			request.RootElement = "IncomingPhoneNumber";
 			
 			AddPhoneNumberOptionsToRequest(request, options);
@@ -108,11 +108,11 @@ namespace Twilio
 			if (options.SmsFallbackMethod.HasValue) request.AddParameter("SmsFallbackMethod", options.SmsFallbackMethod.ToString());
 		}
 
-		public IncomingPhoneNumber UpdateIncomingPhoneNumberName(string incomingPhoneNumberSid, PhoneNumberOptions options) {
+		public IncomingPhoneNumber UpdateIncomingPhoneNumber(string incomingPhoneNumberSid, PhoneNumberOptions options) {
 			Require.Argument("IncomingPhoneNumberSid", incomingPhoneNumberSid);
 
 			var request = new RestRequest(Method.POST);
-			request.ActionFormat = "Accounts/{AccountSid}/IncomingPhoneNumbers/{IncomingPhoneNumberSid}";
+			request.Resource = "Accounts/{AccountSid}/IncomingPhoneNumbers/{IncomingPhoneNumberSid}";
 			request.RootElement = "IncomingPhoneNumber";
 
 			request.AddParameter("IncomingPhoneNumberSid", incomingPhoneNumberSid, ParameterType.UrlSegment);
@@ -124,7 +124,7 @@ namespace Twilio
 		public RestResponse DeleteIncomingPhoneNumber(string incomingPhoneNumberSid) {
 			Require.Argument("IncomingPhoneNumberSid", incomingPhoneNumberSid);
 			var request = new RestRequest(Method.DELETE);
-			request.ActionFormat = "Accounts/{AccountSid}/IncomingPhoneNumbers/{IncomingPhoneNumberSid}";
+			request.Resource = "Accounts/{AccountSid}/IncomingPhoneNumbers/{IncomingPhoneNumberSid}";
 
 			request.AddParameter("IncomingPhoneNumberSid", incomingPhoneNumberSid, ParameterType.UrlSegment);
 

@@ -25,7 +25,7 @@ namespace Twilio
 	{
 		public Notification GetNotification(string notificationSid) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/Notifications/{NotificationSid}";
+			request.Resource = "Accounts/{AccountSid}/Notifications/{NotificationSid}";
 			request.RootElement = "Notification";
 
 			request.AddParameter("NotificationSid", notificationSid, ParameterType.UrlSegment);
@@ -39,7 +39,7 @@ namespace Twilio
 
 		public NotificationList GetNotifications(int? log, DateTime? messageDate, int? pageNumber, int? count) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/Notifications";
+			request.Resource = "Accounts/{AccountSid}/Notifications";
 			request.RootElement = "Notifications";
 
 			if (log.HasValue) request.AddParameter("Log", log);
@@ -53,7 +53,7 @@ namespace Twilio
 		public RestResponse DeleteNotification(string notificationSid) {
 			Require.Argument("NotificationSid", notificationSid);
 			var request = new RestRequest(Method.DELETE);
-			request.ActionFormat = "Accounts/{AccountSid}/Notifications/{NotificationSid}";
+			request.Resource = "Accounts/{AccountSid}/Notifications/{NotificationSid}";
 
 			request.AddParameter("NotificationSid", notificationSid, ParameterType.UrlSegment);
 

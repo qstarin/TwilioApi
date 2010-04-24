@@ -24,7 +24,7 @@ namespace Twilio
 	{
 		public ConferenceList GetConferences() {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/Conferences";
+			request.Resource = "Accounts/{AccountSid}/Conferences";
 			request.RootElement = "Conferences";
 
 			return Execute<ConferenceList>(request);
@@ -32,7 +32,7 @@ namespace Twilio
 
 		public ConferenceList GetConferences(ConferenceListRequest options) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/Conferences";
+			request.Resource = "Accounts/{AccountSid}/Conferences";
 			request.RootElement = "Conferences";
 
 			if (options.Status.HasValue) request.AddParameter("Status", options.Status);
@@ -52,7 +52,7 @@ namespace Twilio
 
 		public Conference GetConference(string conferenceSid) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/Conferences/{ConferenceSid}";
+			request.Resource = "Accounts/{AccountSid}/Conferences/{ConferenceSid}";
 			request.RootElement = "Conference";
 
 			request.AddParameter("ConferenceSid", conferenceSid);
@@ -66,7 +66,7 @@ namespace Twilio
 
 		public ParticipantList GetConferenceParticipants(string conferenceSid, bool? muted, int? pageNumber, int? count) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants";
+			request.Resource = "Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants";
 			request.RootElement = "Participants";
 
 			request.AddParameter("ConferenceSid", conferenceSid);
@@ -80,7 +80,7 @@ namespace Twilio
 
 		public Participant GetConferenceParticipant(string conferenceSid, string callSid) {
 			var request = new RestRequest();
-			request.ActionFormat = "Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}";
+			request.Resource = "Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}";
 			request.RootElement = "Participant";
 
 			request.AddParameter("ConferenceSid", conferenceSid);
@@ -91,7 +91,7 @@ namespace Twilio
 
 		public Participant MuteConferenceParticipant(string conferenceSid, string callSid) {
 			var request = new RestRequest(Method.POST);
-			request.ActionFormat = "Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}";
+			request.Resource = "Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}";
 			request.RootElement = "Participant";
 
 			request.AddParameter("ConferenceSid", conferenceSid);
@@ -103,7 +103,7 @@ namespace Twilio
 
 		public Participant UnmuteConferenceParticipant(string conferenceSid, string callSid) {
 			var request = new RestRequest(Method.POST);
-			request.ActionFormat = "Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}";
+			request.Resource = "Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}";
 			request.RootElement = "Participant";
 
 			request.AddParameter("ConferenceSid", conferenceSid);
@@ -115,7 +115,7 @@ namespace Twilio
 
 		public bool KickParticipantFromConference(string conferenceSid, string callSid) {
 			var request = new RestRequest(Method.POST);
-			request.ActionFormat = "Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}";
+			request.Resource = "Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}";
 			request.AddParameter("ConferenceSid", conferenceSid);
 			request.AddParameter("CallSid", callSid);
 
