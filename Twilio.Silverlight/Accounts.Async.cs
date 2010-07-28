@@ -14,6 +14,7 @@
 //   limitations under the License. 
 #endregion
 
+using System;
 using RestSharp;
 using Twilio.Model;
 
@@ -21,23 +22,23 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public Account GetAccount()
+		public void GetAccountAsync(Action<Account> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}";
 			request.RootElement = "Account";
 
-			return Execute<Account>(request);
+			ExecuteAsync<Account>(request, (response) => { callback(response); });
 		}
 
-		public Account UpdateAccountName(string friendlyName)
+		public void UpdateAccountNameAsync(string friendlyName, Action<Account> callback)
 		{
 			var request = new RestRequest(Method.POST);
 			request.Resource = "Accounts/{AccountSid}";
 			request.RootElement = "Account";
 			request.AddParameter("FriendlyName", friendlyName);
 
-			return Execute<Account>(request);
+			ExecuteAsync<Account>(request, (response) => { callback(response); });
 		}
 	}
 }

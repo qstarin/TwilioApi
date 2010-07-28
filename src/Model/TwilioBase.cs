@@ -18,6 +18,6 @@ namespace Twilio.Model
 {
 	public abstract class TwilioBase
 	{
-		public RestException Exception { get; set; }	
+		public RestException Exception { get; set; }
 	}
 }

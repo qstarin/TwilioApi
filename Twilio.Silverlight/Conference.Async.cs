@@ -14,6 +14,7 @@
 //   limitations under the License. 
 #endregion
 
+using System;
 using RestSharp;
 using RestSharp.Extensions;
 using Twilio.Model;
@@ -22,16 +23,16 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public ConferenceResult GetConferences()
+		public void GetConferencesAsync(Action<ConferenceResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Conferences";
 			//request.RootElement = "Conferences";
 
-			return Execute<ConferenceResult>(request);
+			ExecuteAsync<ConferenceResult>(request, (response) => callback(response));
 		}
 
-		public ConferenceResult GetConferences(ConferenceListRequest options)
+		public void GetConferencesAsync(ConferenceListRequest options, Action<ConferenceResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Conferences";
@@ -49,10 +50,10 @@ namespace Twilio
 			if (options.Count.HasValue) request.AddParameter("num", options.Count.Value);
 			if (options.PageNumber.HasValue) request.AddParameter("page", options.PageNumber.Value);
 
-			return Execute<ConferenceResult>(request);
+			ExecuteAsync<ConferenceResult>(request, (response) => callback(response));
 		}
 
-		public Conference GetConference(string conferenceSid)
+		public void GetConferenceAsync(string conferenceSid, Action<Conference> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Conferences/{ConferenceSid}";
@@ -60,15 +61,15 @@ namespace Twilio
 
 			request.AddParameter("ConferenceSid", conferenceSid);
 
-			return Execute<Conference>(request);
+			ExecuteAsync<Conference>(request, (response) => callback(response));
 		}
 
-		public ParticipantResult GetConferenceParticipants(string conferenceSid, bool? muted)
+		public void GetConferenceParticipantsAsync(string conferenceSid, bool? muted, Action<ParticipantResult> callback)
 		{
-			return GetConferenceParticipants(conferenceSid, muted, null, null);
+			GetConferenceParticipantsAsync(conferenceSid, muted, null, null, callback);
 		}
 
-		public ParticipantResult GetConferenceParticipants(string conferenceSid, bool? muted, int? pageNumber, int? count)
+		public void GetConferenceParticipantsAsync(string conferenceSid, bool? muted, int? pageNumber, int? count, Action<ParticipantResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants";
@@ -80,10 +81,10 @@ namespace Twilio
 			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
 			if (count.HasValue) request.AddParameter("num", count.Value);
 
-			return Execute<ParticipantResult>(request);
+			ExecuteAsync<ParticipantResult>(request, (response) => callback(response));
 		}
 
-		public Participant GetConferenceParticipant(string conferenceSid, string callSid)
+		public void GetConferenceParticipantAsync(string conferenceSid, string callSid, Action<Participant> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}";
@@ -92,10 +93,10 @@ namespace Twilio
 			request.AddParameter("ConferenceSid", conferenceSid);
 			request.AddParameter("CallSid", callSid);
 
-			return Execute<Participant>(request);
+			ExecuteAsync<Participant>(request, (response) => callback(response));
 		}
 
-		public Participant MuteConferenceParticipant(string conferenceSid, string callSid)
+		public void MuteConferenceParticipantAsync(string conferenceSid, string callSid, Action<Participant> callback)
 		{
 			var request = new RestRequest(Method.POST);
 			request.Resource = "Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}";
@@ -105,10 +106,10 @@ namespace Twilio
 			request.AddParameter("CallSid", callSid);
 			request.AddParameter("Muted", true);
 
-			return Execute<Participant>(request);
+			ExecuteAsync<Participant>(request, (response) => callback(response));
 		}
 
-		public Participant UnmuteConferenceParticipant(string conferenceSid, string callSid)
+		public void UnmuteConferenceParticipantAsync(string conferenceSid, string callSid, Action<Participant> callback)
 		{
 			var request = new RestRequest(Method.POST);
 			request.Resource = "Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}";
@@ -118,18 +119,18 @@ namespace Twilio
 			request.AddParameter("CallSid", callSid);
 			request.AddParameter("Muted", false);
 
-			return Execute<Participant>(request);
+			ExecuteAsync<Participant>(request, (response) => callback(response));
 		}
 
-		public bool KickParticipantFromConference(string conferenceSid, string callSid)
+		public void KickParticipantFromConferenceAsync(string conferenceSid, string callSid, Action<bool> callback)
 		{
 			var request = new RestRequest(Method.POST);
 			request.Resource = "Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}";
 			request.AddParameter("ConferenceSid", conferenceSid);
 			request.AddParameter("CallSid", callSid);
 
-			var response = Execute(request);
-			return response.StatusCode == System.Net.HttpStatusCode.NoContent;
+			//var response = Execute(request);
+			ExecuteAsync(request, (response) => callback(response.StatusCode == System.Net.HttpStatusCode.NoContent));
 		}
 	}
 }

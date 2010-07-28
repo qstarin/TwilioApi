@@ -23,7 +23,7 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public Notification GetNotification(string notificationSid)
+		public void GetNotificationAsync(string notificationSid, Action<Notification> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Notifications/{NotificationSid}";
@@ -31,15 +31,15 @@ namespace Twilio
 
 			request.AddParameter("NotificationSid", notificationSid, ParameterType.UrlSegment);
 
-			return Execute<Notification>(request);
+			ExecuteAsync<Notification>(request, (response) => callback(response));
 		}
 
-		public NotificationResult GetNotifications()
+		public void GetNotificationsAsync(Action<NotificationResult> callback)
 		{
-			return GetNotifications(null, null, null, null);
+			GetNotificationsAsync(null, null, null, null, callback);
 		}
 
-		public NotificationResult GetNotifications(int? log, DateTime? messageDate, int? pageNumber, int? count)
+		public void GetNotificationsAsync(int? log, DateTime? messageDate, int? pageNumber, int? count, Action<NotificationResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Notifications";
@@ -50,10 +50,10 @@ namespace Twilio
 			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
 			if (count.HasValue) request.AddParameter("num", count.Value);
 
-			return Execute<NotificationResult>(request);
+			ExecuteAsync<NotificationResult>(request, (response) => callback(response));
 		}
 
-		public RestResponse DeleteNotification(string notificationSid)
+		public void DeleteNotificationAsync(string notificationSid, Action<RestResponse> callback)
 		{
 			Require.Argument("NotificationSid", notificationSid);
 			var request = new RestRequest(Method.DELETE);
@@ -61,7 +61,7 @@ namespace Twilio
 
 			request.AddParameter("NotificationSid", notificationSid, ParameterType.UrlSegment);
 
-			return Execute(request);
+			ExecuteAsync(request, (response) => callback(response));
 		}
 	}
 }

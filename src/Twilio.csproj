@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -12,6 +12,11 @@
     <AssemblyName>TwilioApi</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,14 +26,16 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;FRAMEWORK</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="RestSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -49,6 +56,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Twilio.Silverlight\Accounts.Async.cs">
+      <Link>Accounts.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\Twilio.Silverlight\Calls.Async.cs">
+      <Link>Calls.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\Twilio.Silverlight\Conference.Async.cs">
+      <Link>Conference.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\Twilio.Silverlight\Core.Async.cs">
+      <Link>Core.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\Twilio.Silverlight\IncomingPhoneNumbers.Async.cs">
+      <Link>IncomingPhoneNumbers.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\Twilio.Silverlight\Notifications.Aysnc.cs">
+      <Link>Notifications.Aysnc.cs</Link>
+    </Compile>
+    <Compile Include="..\Twilio.Silverlight\OutgoingCallerIds.Async.cs">
+      <Link>OutgoingCallerIds.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\Twilio.Silverlight\Recordings.Async.cs">
+      <Link>Recordings.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\Twilio.Silverlight\Sms.Async.cs">
+      <Link>Sms.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\Twilio.Silverlight\Transcriptions.Async.cs">
+      <Link>Transcriptions.Async.cs</Link>
+    </Compile>
     <Compile Include="Accounts.cs" />
     <Compile Include="Calls.cs" />
     <Compile Include="Conference.cs" />
@@ -63,10 +100,10 @@
     <Compile Include="Model\Conference.cs" />
     <Compile Include="Model\ConferenceList.cs" />
     <Compile Include="Model\ConferenceListRequest.cs" />
+    <Compile Include="Model\HttpMethod.cs" />
     <Compile Include="Model\IfMachine.cs" />
     <Compile Include="Model\IncomingPhoneNumber.cs" />
     <Compile Include="Model\IncomingPhoneNumberList.cs" />
-    <Compile Include="Model\HttpMethod.cs" />
     <Compile Include="Model\Notification.cs" />
     <Compile Include="Model\NotificationList.cs" />
     <Compile Include="Model\OutgoingCallerId.cs" />

@@ -24,22 +24,22 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public SmsMessage GetSmsMessage(string smsMessageSid)
+		public void GetSmsMessageAsync(string smsMessageSid, Action<SmsMessage> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/SMS/Messages/{SMSMessageSid}";
 			request.RootElement = "SMSMessage";
 			request.AddParameter("SMSMessageSid", smsMessageSid);
 
-			return Execute<SmsMessage>(request);
+			ExecuteAsync<SmsMessage>(request, (response) => callback(response));
 		}
 
-		public SmsMessageResult GetSmsMessages()
+		public void GetSmsMessagesAsync(Action<SmsMessageResult> callback)
 		{
-			return GetSmsMessages(null, null, null, null, null);
+			GetSmsMessagesAsync(null, null, null, null, null, callback);
 		}
 
-		public SmsMessageResult GetSmsMessages(string to, string from, DateTime? dateSent, int? pageNumber, int? count)
+		public void GetSmsMessagesAsync(string to, string from, DateTime? dateSent, int? pageNumber, int? count, Action<SmsMessageResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/SMS/Messages";
@@ -51,15 +51,15 @@ namespace Twilio
 			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
 			if (count.HasValue) request.AddParameter("num", count.Value);
 
-			return Execute<SmsMessageResult>(request);
+			ExecuteAsync<SmsMessageResult>(request, (response) => callback(response));
 		}
 
-		public SmsMessage SendSmsMessage(string from, string to, string body)
+		public void SendSmsMessageAsync(string from, string to, string body, Action<SmsMessage> callback)
 		{
-			return SendSmsMessage(from, to, body, null);
+			SendSmsMessageAsync(from, to, body, null, callback);
 		}
 
-		public SmsMessage SendSmsMessage(string from, string to, string body, string statusCallback)
+		public void SendSmsMessageAsync(string from, string to, string body, string statusCallback, Action<SmsMessage> callback)
 		{
 			Validate.IsValidLength(body, 160);
 			Require.Argument("from", from);
@@ -73,7 +73,7 @@ namespace Twilio
 			request.AddParameter("Body", body);
 			if (statusCallback.HasValue()) request.AddParameter("StatusCallback", statusCallback);
 
-			return Execute<SmsMessage>(request);
+			ExecuteAsync<SmsMessage>(request, (response) => callback(response));
 		}
 	}
 }

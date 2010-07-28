@@ -25,6 +25,6 @@ namespace Twilio.Model
 
 	public class IncomingPhoneNumberList : TwilioListBase<IncomingPhoneNumber>
 	{
-			
+
 	}
 }

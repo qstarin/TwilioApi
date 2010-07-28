@@ -14,6 +14,7 @@
 //   limitations under the License. 
 #endregion
 
+using System;
 using RestSharp;
 using Twilio.Model;
 
@@ -21,12 +22,12 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public TranscriptionResult GetTranscriptions()
+		public void GetTranscriptionsAsync(Action<TranscriptionResult> callback)
 		{
-			return GetTranscriptions(null, null);
+			GetTranscriptionsAsync(null, null, callback);
 		}
 
-		public TranscriptionResult GetTranscriptions(int? pageNumber, int? count)
+		public void GetTranscriptionsAsync(int? pageNumber, int? count, Action<TranscriptionResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Transcriptions";
@@ -34,17 +35,17 @@ namespace Twilio
 			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
 			if (count.HasValue) request.AddParameter("num", count.Value);
 
-			return Execute<TranscriptionResult>(request);
+			ExecuteAsync<TranscriptionResult>(request, (response) => callback(response));
 		}
 
-		public Transcription GetTranscription(string recordingSid, string transcriptionSid)
+		public void GetTranscriptionAsync(string recordingSid, string transcriptionSid, Action<Transcription> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{TranscriptionSid}";
 			request.RootElement = "Transcription";
 			request.AddParameter("RecordingSid", recordingSid, ParameterType.UrlSegment);
 
-			return Execute<Transcription>(request);
+			ExecuteAsync<Transcription>(request, (response) => callback(response));
 		}
 	}
 }

@@ -14,6 +14,7 @@
 //   limitations under the License. 
 #endregion
 
+using System;
 using RestSharp;
 using RestSharp.Extensions;
 using RestSharp.Validation;
@@ -23,16 +24,16 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public CallResult GetCalls()
+		public void GetCallsAsync(Action<CallResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Calls";
 			//request.RootElement = "Calls";
 
-			return Execute<CallResult>(request);
+			ExecuteAsync<CallResult>(request, (response) => callback(response));
 		}
 
-		public CallResult GetCalls(CallListRequest options)
+		public void GetCallsAsync(CallListRequest options, Action<CallResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Calls";
@@ -53,10 +54,10 @@ namespace Twilio
 			if (options.Count.HasValue) request.AddParameter("num", options.Count.Value);
 			if (options.PageNumber.HasValue) request.AddParameter("page", options.PageNumber.Value);
 
-			return Execute<CallResult>(request);
+			ExecuteAsync<CallResult>(request, (response) => callback(response));
 		}
 
-		public Call GetCall(string callSid)
+		public void GetCallAsync(string callSid, Action<Call> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Calls/{CallSid}";
@@ -64,15 +65,15 @@ namespace Twilio
 
 			request.AddParameter("CallSid", callSid, ParameterType.UrlSegment);
 
-			return Execute<Call>(request);
+			ExecuteAsync<Call>(request, (response) => callback(response));
 		}
 
-		public CallResult GetCallSegments(string callSid)
+		public void GetCallSegmentsAsync(string callSid, Action<CallResult> callback)
 		{
-			return GetCallSegments(callSid, null, null);
+			GetCallSegmentsAsync(callSid, null, null, callback);
 		}
 
-		public CallResult GetCallSegments(string callSid, int? pageNumber, int? count)
+		public void GetCallSegmentsAsync(string callSid, int? pageNumber, int? count, Action<CallResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Calls/{CallSid}/Segments";
@@ -83,10 +84,10 @@ namespace Twilio
 			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
 			if (count.HasValue) request.AddParameter("num", count.Value);
 
-			return Execute<CallResult>(request);
+			ExecuteAsync<CallResult>(request, (response) => callback(response));
 		}
 
-		public Call GetCallSegment(string callSid, string callSegmentSid)
+		public void GetCallSegmentAsync(string callSid, string callSegmentSid, Action<Call> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Calls/{CallSid}/Segments/{CallSegmentSid}";
@@ -95,20 +96,21 @@ namespace Twilio
 			request.AddParameter("CallSid", callSid, ParameterType.UrlSegment);
 			request.AddParameter("CallSegmentSid", callSegmentSid, ParameterType.UrlSegment);
 
-			return Execute<Call>(request);
+			ExecuteAsync<Call>(request, (response) => callback(response));
 		}
 
-		public Call InitiateOutboundCall(string caller, string called, string url)
+		public void InitiateOutboundCallAsync(string caller, string called, string url, Action<Call> callback)
 		{
-			return InitiateOutboundCall(new CallOptions
+			InitiateOutboundCallAsync(new CallOptions
 			{
 				Caller = caller,
 				Called = called,
 				Url = url
-			});
+			},
+			callback);
 		}
 
-		public Call InitiateOutboundCall(CallOptions options)
+		public void InitiateOutboundCallAsync(CallOptions options, Action<Call> callback)
 		{
 			Require.Argument("Caller", options.Caller);
 			Require.Argument("Called", options.Called);
@@ -127,10 +129,10 @@ namespace Twilio
 			if (options.IfMachine.HasValue) request.AddParameter("IfMachine", options.IfMachine.Value);
 			if (options.Timeout.HasValue) request.AddParameter("Timeout", options.Timeout.Value);
 
-			return Execute<Call>(request);
+			ExecuteAsync<Call>(request, (response) => callback(response));
 		}
 
-		public Call RedirectCall(string callSid, string currentUrl, Method? currentMethod)
+		public void RedirectCallAsync(string callSid, string currentUrl, Method? currentMethod, Action<Call> callback)
 		{
 			Require.Argument("CallSid", callSid);
 			Require.Argument("CurrentUrl", currentUrl);
@@ -143,7 +145,7 @@ namespace Twilio
 			request.AddParameter("CurrentUrl", currentUrl);
 			if (currentMethod.HasValue) request.AddParameter("CurrentMethod", currentMethod.Value);
 
-			return Execute<Call>(request);
+			ExecuteAsync<Call>(request, (response) => callback(response));
 		}
 	}
 }

@@ -25,7 +25,7 @@ namespace Twilio.Model
 
 	public class NotificationList : TwilioListBase<Notification>
 	{
-		
+
 	}
 
 }

@@ -28,5 +28,7 @@ namespace Twilio.Model
 		public string PhoneNumber { get; set; }
 		public string Url { get; set; }
 		public string Method { get; set; }
+		public RestException Exception { get; set; }
+
 	}
 }

@@ -14,6 +14,7 @@
 //   limitations under the License. 
 #endregion
 
+using System;
 using RestSharp;
 using RestSharp.Extensions;
 using RestSharp.Validation;
@@ -23,22 +24,22 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public OutgoingCallerId GetOutgoingCallerId(string outgoingCallerIdSid)
+		public void GetOutgoingCallerIdAsync(string outgoingCallerIdSid, Action<OutgoingCallerId> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/OutgoingCallerIds/{OutgoingCallerIdSid}";
 			request.RootElement = "OutgoingCallerId";
 			request.AddParameter("OutgoingCallerIdSid", outgoingCallerIdSid, ParameterType.UrlSegment);
 
-			return Execute<OutgoingCallerId>(request);
+			ExecuteAsync<OutgoingCallerId>(request, (response) => callback(response));
 		}
 
-		public OutgoingCallerIdResult GetOutgoingCallerIds()
+		public void GetOutgoingCallerIdsAsync(Action<OutgoingCallerIdResult> callback)
 		{
-			return GetOutgoingCallerIds(null, null, null, null);
+			GetOutgoingCallerIdsAsync(null, null, null, null, callback);
 		}
 
-		public OutgoingCallerIdResult GetOutgoingCallerIds(string phoneNumber, string friendlyName, int? pageNumber, int? count)
+		public void GetOutgoingCallerIdsAsync(string phoneNumber, string friendlyName, int? pageNumber, int? count, Action<OutgoingCallerIdResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/OutgoingCallerIds";
@@ -49,10 +50,10 @@ namespace Twilio
 			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
 			if (count.HasValue) request.AddParameter("num", count.Value);
 
-			return Execute<OutgoingCallerIdResult>(request);
+			ExecuteAsync<OutgoingCallerIdResult>(request, (response) => callback(response));
 		}
 
-		public ValidationRequest AddOutgoingCallerId(string phoneNumber, string friendlyName, int? callDelay)
+		public void AddOutgoingCallerIdAsync(string phoneNumber, string friendlyName, int? callDelay, Action<ValidationRequest> callback)
 		{
 			Require.Argument("PhoneNumber", phoneNumber);
 			if (callDelay.HasValue) Validate.IsBetween(callDelay.Value, 0, 60);
@@ -65,10 +66,10 @@ namespace Twilio
 			if (friendlyName.HasValue()) request.AddParameter("FriendlyName", friendlyName);
 			if (callDelay.HasValue) request.AddParameter("CallDelay", callDelay.Value);
 
-			return Execute<ValidationRequest>(request);
+			ExecuteAsync<ValidationRequest>(request, (response) => callback(response));
 		}
 
-		public OutgoingCallerId UpdateOutgoingCallerIdName(string outgoingCallerIdSid, string friendlyName)
+		public void UpdateOutgoingCallerIdNameAsync(string outgoingCallerIdSid, string friendlyName, Action<OutgoingCallerId> callback)
 		{
 			Require.Argument("OutgoingCallerIdSid", outgoingCallerIdSid);
 			Require.Argument("FriendlyName", friendlyName);
@@ -81,10 +82,10 @@ namespace Twilio
 			request.AddParameter("OutgoingCallerIdSid", outgoingCallerIdSid, ParameterType.UrlSegment);
 			request.AddParameter("FriendlyName", friendlyName);
 
-			return Execute<OutgoingCallerId>(request);
+			ExecuteAsync<OutgoingCallerId>(request, (response) => callback(response));
 		}
 
-		public RestResponse DeleteOutgoingCallerId(string outgoingCallerIdSid)
+		public void DeleteOutgoingCallerIdAsync(string outgoingCallerIdSid, Action<RestResponse> callback)
 		{
 			Require.Argument("OutgoingCallerIdSid", outgoingCallerIdSid);
 			var request = new RestRequest(Method.DELETE);
@@ -92,7 +93,7 @@ namespace Twilio
 
 			request.AddParameter("OutgoingCallerIdSid", outgoingCallerIdSid, ParameterType.UrlSegment);
 
-			return Execute(request);
+			ExecuteAsync(request, (response) => callback(response));
 		}
 	}
 }

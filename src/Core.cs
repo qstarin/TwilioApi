@@ -22,34 +22,41 @@ namespace Twilio
 	public partial class TwilioApi
 	{
 		private const string BaseUrl = "https://api.twilio.com/2008-08-01";
+		private RestClient _client;
 
 		private readonly string _accountSid;
-		private readonly string _secretKey;
-		public TwilioApi(string accountSid, string secretKey) {
+		private readonly string _authToken;
+		public TwilioApi(string accountSid, string authToken)
+		{
 			_accountSid = accountSid;
-			_secretKey = secretKey;
+			_authToken = authToken;
+
+			_client = new RestClient();
+			_client.Authenticator = new HttpBasicAuthenticator(_accountSid, _authToken);
+			_client.BaseUrl = BaseUrl;
 		}
 
-		public T Execute<T>(RestRequest request) where T : new() {
-			var client = new RestClient();
-			client.Authenticator = new HttpBasicAuthenticator(_accountSid, _secretKey);
-			client.BaseUrl = BaseUrl;
+#if FRAMEWORK
+		public T Execute<T>(RestRequest request) where T : new()
+		{
 			request.AddParameter("AccountSid", _accountSid, ParameterType.UrlSegment);
-			var response = client.Execute<T>(request);
+			var response = _client.Execute<T>(request);
 			return response.Data;
 		}
 
-		public RestResponse Execute(RestRequest request) {
-			var client = new RestClient();
-			client.Authenticator = new HttpBasicAuthenticator(_accountSid, _secretKey);
-			client.BaseUrl = BaseUrl;
+		public RestResponse Execute(RestRequest request)
+		{
 			request.AddParameter("AccountSid", _accountSid, ParameterType.UrlSegment);
-			return client.Execute(request);
+			return _client.Execute(request);
 		}
+#endif
 
-		private string GetParameterNameWithEquality(ComparisonType? comparisonType, string parameterName) {
-			if (comparisonType.HasValue) {
-				switch (comparisonType) {
+		private string GetParameterNameWithEquality(ComparisonType? comparisonType, string parameterName)
+		{
+			if (comparisonType.HasValue)
+			{
+				switch (comparisonType)
+				{
 					case ComparisonType.GreaterThanOrEqualTo:
 						parameterName += ">";
 						break;

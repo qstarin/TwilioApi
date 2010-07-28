@@ -23,12 +23,12 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public RecordingResult GetRecordings()
+		public void GetRecordingsAsync(Action<RecordingResult> callback)
 		{
-			return GetRecordings(null, null, null, null);
+			GetRecordingsAsync(null, null, null, null, callback);
 		}
 
-		public RecordingResult GetRecordings(string callSid, DateTime? dateCreated, int? pageNumber, int? count)
+		public void GetRecordingsAsync(string callSid, DateTime? dateCreated, int? pageNumber, int? count, Action<RecordingResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Recordings";
@@ -39,10 +39,10 @@ namespace Twilio
 			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
 			if (count.HasValue) request.AddParameter("num", count.Value);
 
-			return Execute<RecordingResult>(request);
+			ExecuteAsync<RecordingResult>(request, (response) => callback(response));
 		}
 
-		public Recording GetRecording(string recordingSid)
+		public void GetRecordingAsync(string recordingSid, Action<Recording> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Recordings/{RecordingSid}.xml";
@@ -50,10 +50,10 @@ namespace Twilio
 
 			request.AddParameter("RecordingSid", recordingSid, ParameterType.UrlSegment);
 
-			return Execute<Recording>(request);
+			ExecuteAsync<Recording>(request, (response) => callback(response));
 		}
 
-		public RestResponse DeleteRecording(string recordingSid)
+		public void DeleteRecordingAsync(string recordingSid, Action<RestResponse> callback)
 		{
 			var request = new RestRequest(Method.DELETE);
 			request.Resource = "Accounts/{AccountSid}/Recordings/{RecordingSid}.xml";
@@ -61,7 +61,7 @@ namespace Twilio
 
 			request.AddParameter("RecordingSid", recordingSid, ParameterType.UrlSegment);
 
-			return Execute(request);
+			ExecuteAsync(request, (response) => callback(response));
 		}
 	}
 }
