@@ -14,10 +14,12 @@
 //   limitations under the License. 
 #endregion
 
+using System;
 namespace Twilio.Model
 {
 	public abstract class TwilioBase
 	{
 		public RestException Exception { get; set; }
+		public Uri Uri { get; set; }
 	}
 }

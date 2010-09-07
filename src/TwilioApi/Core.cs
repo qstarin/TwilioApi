@@ -21,7 +21,7 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		private const string BaseUrl = "https://api.twilio.com/2008-08-01";
+		private const string BaseUrl = "https://api.twilio.com/2010-04-01";
 		private RestClient _client;
 
 		private readonly string _accountSid;

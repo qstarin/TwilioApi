@@ -27,7 +27,6 @@ namespace Twilio
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Calls";
-			//request.RootElement = "Calls";
 
 			return Execute<CallResult>(request);
 		}
@@ -36,10 +35,9 @@ namespace Twilio
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Calls";
-			//request.RootElement = "Calls";
 
-			if (options.Called.HasValue()) request.AddParameter("Called", options.Called);
-			if (options.Caller.HasValue()) request.AddParameter("Caller", options.Caller);
+			if (options.From.HasValue()) request.AddParameter("From", options.From);
+			if (options.To.HasValue()) request.AddParameter("To", options.To);
 			if (options.Status.HasValue) request.AddParameter("Status", options.Status);
 			if (options.StartTime.HasValue) request.AddParameter("StartTime", options.StartTime.Value.ToString("yyyy-MM-dd"));
 			if (options.EndTime.HasValue) request.AddParameter("EndTime", options.EndTime.Value.ToString("yyyy-MM-dd"));
@@ -76,7 +74,6 @@ namespace Twilio
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Calls/{CallSid}/Segments";
-			//request.RootElement = "Calls";
 
 			request.AddParameter("CallSid", callSid, ParameterType.UrlSegment);
 
@@ -98,34 +95,58 @@ namespace Twilio
 			return Execute<Call>(request);
 		}
 
-		public Call InitiateOutboundCall(string caller, string called, string url)
+		public Call InitiateOutboundCall(string from, string to, string url)
+		{
+			return InitiateOutboundCall(from, to, url, null);
+		}
+
+		public Call InitiateOutboundCall(string from, string to, string url, string statusCallback)
 		{
 			return InitiateOutboundCall(new CallOptions
 			{
-				Caller = caller,
-				Called = called,
-				Url = url
+				From = from,
+				To = to,
+				Url = url,
+				StatusCallback = statusCallback
 			});
 		}
 
 		public Call InitiateOutboundCall(CallOptions options)
 		{
-			Require.Argument("Caller", options.Caller);
-			Require.Argument("Called", options.Called);
+			Require.Argument("From", options.From);
+			Require.Argument("To", options.To);
 			Require.Argument("Url", options.Url);
 
 			var request = new RestRequest(Method.POST);
 			request.Resource = "Accounts/{AccountSid}/Calls";
 			request.RootElement = "Calls";
 
-			request.AddParameter("Caller", options.Caller);
-			request.AddParameter("Called", options.Called);
+			request.AddParameter("From", options.From);
+			request.AddParameter("To", options.To);
 			request.AddParameter("Url", options.Url);
 
+			if (options.StatusCallback.HasValue()) request.AddParameter("StatusCallback", options.StatusCallback);
+			if (options.StatusCallbackMethod.HasValue) request.AddParameter("StatusCallbackMethod", options.StatusCallbackMethod);
+			if (options.FallbackUrl.HasValue()) request.AddParameter("FallbackUrl", options.FallbackUrl);
+			if (options.FallbackMethod.HasValue) request.AddParameter("FallbackMethod", options.FallbackMethod);
 			if (options.Method.HasValue) request.AddParameter("Method", options.Method);
 			if (options.SendDigits.HasValue()) request.AddParameter("SendDigits", options.SendDigits);
 			if (options.IfMachine.HasValue) request.AddParameter("IfMachine", options.IfMachine.Value);
 			if (options.Timeout.HasValue) request.AddParameter("Timeout", options.Timeout.Value);
+
+			return Execute<Call>(request);
+		}
+
+		public Call HangupCall(string callSid, HangupStyle style)
+		{
+			Require.Argument("CallSid", callSid);
+
+			var request = new RestRequest(Method.POST);
+			request.Resource = "Accounts/{AccountSid}/Calls/{CallSid}";
+			request.RootElement = "Call";
+
+			request.AddUrlSegment("CallSid", callSid);
+			request.AddParameter("Status", style.ToString().ToLower());
 
 			return Execute<Call>(request);
 		}

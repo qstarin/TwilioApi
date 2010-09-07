@@ -26,9 +26,17 @@ namespace Twilio.Model
 		public string FriendlyName { get; set; }
 		public string AccountSid { get; set; }
 		public string PhoneNumber { get; set; }
-		public string Url { get; set; }
-		public string Method { get; set; }
-		public RestException Exception { get; set; }
-
+		public string ApiVersion { get; set; }
+		public bool VoiceCallerIdLookup { get; set; }
+		public string VoiceUrl { get; set; }
+		public string VoiceMethod { get; set; }
+		public string VoiceFallbackUrl { get; set; }
+		public string VoiceFallbackMethod { get; set; }
+		public string StatusCallback { get; set; }
+		public string StatusCallbackMethod { get; set; }
+		public string SmsUrl { get; set; }
+		public string SmsMethod { get; set; }
+		public string SmsFallbackUrl { get; set; }
+		public string SmsFallbackMethod { get; set; }
 	}
 }

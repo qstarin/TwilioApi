@@ -23,7 +23,7 @@ namespace Twilio.Model
 		public string Sid { get; set; }
 		public string AccountSid { get; set; }
 		public string FriendlyName { get; set; }
-		public int Status { get; set; }
+		public string Status { get; set; }
 		public DateTime DateCreated { get; set; }
 		public DateTime DateUpdated { get; set; }
 	}

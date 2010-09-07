@@ -14,6 +14,7 @@
 //   limitations under the License. 
 #endregion
 
+using System;
 using System.Collections.Generic;
 
 namespace Twilio.Model
@@ -36,5 +37,6 @@ namespace Twilio.Model
 		public int Total { get; set; }
 		public int Start { get; set; }
 		public int End { get; set; }
+		public Uri Uri { get; set; }
 	}
 }

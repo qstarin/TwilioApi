@@ -26,5 +26,6 @@ namespace Twilio.Model
 		public string AccountSid { get; set; }
 		public string CallSid { get; set; }
 		public int Duration { get; set; }
+		public string ApiVersion { get; set; }
 	}
 }

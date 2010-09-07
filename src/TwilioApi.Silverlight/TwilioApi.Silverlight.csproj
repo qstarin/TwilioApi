@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Twilio.Silverlight</RootNamespace>
-    <AssemblyName>Twilio.Silverlight</AssemblyName>
+    <AssemblyName>TwilioApi.Silverlight</AssemblyName>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
@@ -64,6 +64,9 @@
     <Compile Include="..\TwilioApi\Model\Account.cs">
       <Link>Model\Account.cs</Link>
     </Compile>
+    <Compile Include="..\TwilioApi\Model\AvailablePhoneNumber.cs">
+      <Link>Model\AvailablePhoneNumber.cs</Link>
+    </Compile>
     <Compile Include="..\TwilioApi\Model\Call.cs">
       <Link>Model\Call.cs</Link>
     </Compile>
@@ -87,6 +90,9 @@
     </Compile>
     <Compile Include="..\TwilioApi\Model\ConferenceListRequest.cs">
       <Link>Model\ConferenceListRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\TwilioApi\Model\HangupStyle.cs">
+      <Link>Model\HangupStyle.cs</Link>
     </Compile>
     <Compile Include="..\TwilioApi\Model\HttpMethod.cs">
       <Link>Model\HttpMethod.cs</Link>
@@ -155,6 +161,7 @@
       <Link>Core.cs</Link>
     </Compile>
     <Compile Include="Accounts.Async.cs" />
+    <Compile Include="AvailablePhoneNumbers.Aysnc.cs" />
     <Compile Include="Calls.Async.cs" />
     <Compile Include="Conference.Async.cs" />
     <Compile Include="Core.Async.cs" />

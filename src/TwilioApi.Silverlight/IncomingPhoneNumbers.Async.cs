@@ -130,11 +130,13 @@ namespace Twilio
 				Validate.IsValidLength(options.FriendlyName, 64);
 				request.AddParameter("FriendlyName", options.FriendlyName);
 			}
-			if (options.Url.HasValue()) request.AddParameter("Url", options.Url);
-			if (options.Method.HasValue) request.AddParameter("Method", options.Method.ToString());
+			if (options.VoiceUrl.HasValue()) request.AddParameter("VoiceUrl", options.VoiceUrl);
+			if (options.VoiceMethod.HasValue) request.AddParameter("VoiceMethod", options.VoiceMethod.ToString());
 			if (options.VoiceFallbackUrl.HasValue()) request.AddParameter("VoiceFallbackUrl", options.VoiceFallbackUrl);
 			if (options.VoiceFallbackMethod.HasValue) request.AddParameter("VoiceFallbackMethod", options.VoiceFallbackMethod.ToString());
 			if (options.VoiceCallerIdLookup.HasValue) request.AddParameter("VoiceCallerIdLookup", options.VoiceCallerIdLookup.Value);
+			if (options.StatusCallbackUrl.HasValue()) request.AddParameter("StatusCallbackUrl", options.StatusCallbackUrl);
+			if (options.StatusCallbackMethod.HasValue) request.AddParameter("StatusCallbackMethod", options.StatusCallbackMethod.ToString());
 		}
 
 		private void AddSmsOptionsToRequest(RestRequest request, PhoneNumberOptions options)

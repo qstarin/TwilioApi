@@ -40,5 +40,23 @@ namespace Twilio
 
 			ExecuteAsync<Account>(request, (response) => { callback(response); });
 		}
+
+		public void ListSubAccounts(Action<AccountResult> callback)
+		{
+			var request = new RestRequest();
+			request.Resource = "Accounts";
+
+			ExecuteAsync<AccountResult>(request, (response) => { callback(response); });
+		}
+
+		public void CreateSubAccount(Action<Account> callback)
+		{
+			var request = new RestRequest(Method.POST);
+			request.Resource = "Accounts";
+			request.RootElement = "Account";
+
+			ExecuteAsync<Account>(request, (response) => { callback(response); });
+		}
+
 	}
 }

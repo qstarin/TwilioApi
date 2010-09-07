@@ -30,6 +30,23 @@ namespace Twilio
 			return Execute<Account>(request);
 		}
 
+		public AccountResult ListSubAccounts()
+		{
+			var request = new RestRequest();
+			request.Resource = "Accounts";
+
+			return Execute<AccountResult>(request);
+		}
+
+		public Account CreateSubAccount()
+		{
+			var request = new RestRequest(Method.POST);
+			request.Resource = "Accounts";
+			request.RootElement = "Account";
+
+			return Execute<Account>(request);
+		}
+
 		public Account UpdateAccountName(string friendlyName)
 		{
 			var request = new RestRequest(Method.POST);

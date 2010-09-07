@@ -58,6 +58,9 @@
     <Compile Include="..\TwilioApi.Silverlight\Accounts.Async.cs">
       <Link>Accounts.Async.cs</Link>
     </Compile>
+    <Compile Include="..\TwilioApi.Silverlight\AvailablePhoneNumbers.Aysnc.cs">
+      <Link>AvailablePhoneNumbers.Aysnc.cs</Link>
+    </Compile>
     <Compile Include="..\TwilioApi.Silverlight\Calls.Async.cs">
       <Link>Calls.Async.cs</Link>
     </Compile>
@@ -88,9 +91,11 @@
     <Compile Include="Accounts.cs" />
     <Compile Include="Calls.cs" />
     <Compile Include="Conference.cs" />
+    <Compile Include="AvailablePhoneNumbers.cs" />
     <Compile Include="Core.cs" />
     <Compile Include="IncomingPhoneNumbers.cs" />
     <Compile Include="Model\Account.cs" />
+    <Compile Include="Model\AvailablePhoneNumber.cs" />
     <Compile Include="Model\Call.cs" />
     <Compile Include="Model\CallList.cs" />
     <Compile Include="Model\CallListRequest.cs" />
@@ -99,6 +104,7 @@
     <Compile Include="Model\Conference.cs" />
     <Compile Include="Model\ConferenceList.cs" />
     <Compile Include="Model\ConferenceListRequest.cs" />
+    <Compile Include="Model\HangupStyle.cs" />
     <Compile Include="Model\HttpMethod.cs" />
     <Compile Include="Model\IfMachine.cs" />
     <Compile Include="Model\IncomingPhoneNumber.cs" />
@@ -134,6 +140,6 @@
   </Target>
   -->
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release' ">
-    <Exec Command="&quot;c:\Program Files (x86)\Microsoft\ILMerge\ilmerge.exe&quot; /lib:$(OutDir) /internalize /ndebug /v2 /out:$(MSBuildProjectDirectory)\..\download\TwilioApi.dll TwilioApi.dll RestSharp.dll Newtonsoft.Json.dll" />
+    <Exec Command="&quot;c:\Program Files (x86)\Microsoft\ILMerge\ilmerge.exe&quot; /lib:$(OutDir) /internalize /ndebug /v2 /out:$(MSBuildProjectDirectory)\..\..\download\TwilioApi.dll TwilioApi.dll RestSharp.dll Newtonsoft.Json.dll" />
   </Target>
 </Project>

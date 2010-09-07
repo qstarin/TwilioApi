@@ -20,8 +20,8 @@ namespace Twilio.Model
 {
 	public class CallListRequest
 	{
-		public string Called { get; set; }
-		public string Caller { get; set; }
+		public string From { get; set; }
+		public string To { get; set; }
 		public int? Status { get; set; }
 		public DateTime? StartTime { get; set; }
 		public ComparisonType StartTimeComparison { get; set; }

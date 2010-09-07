@@ -20,8 +20,8 @@ namespace Twilio.Model
 	{
 		public string AreaCode { get; set; }
 		public string FriendlyName { get; set; }
-		public string Url { get; set; }
-		public HttpMethod? Method { get; set; }
+		public string VoiceUrl { get; set; }
+		public HttpMethod? VoiceMethod { get; set; }
 		public string VoiceFallbackUrl { get; set; }
 		public HttpMethod? VoiceFallbackMethod { get; set; }
 		public string SmsUrl { get; set; }
@@ -29,5 +29,8 @@ namespace Twilio.Model
 		public string SmsFallbackUrl { get; set; }
 		public HttpMethod? SmsFallbackMethod { get; set; }
 		public bool? VoiceCallerIdLookup { get; set; }
+		public string StatusCallbackUrl { get; set; }
+		public HttpMethod? StatusCallbackMethod { get; set; }
+
 	}
 }

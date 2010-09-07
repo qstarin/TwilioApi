@@ -29,6 +29,8 @@ namespace Twilio.Model
 		public string To { get; set; }
 		public string Body { get; set; }
 		public string Status { get; set; }
-		public int Flags { get; set; }
+		public string Direction { get; set; }
+		public decimal Price { get; set; }
+		public string ApiVersion { get; set; }
 	}
 }

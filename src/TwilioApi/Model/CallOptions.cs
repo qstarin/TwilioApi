@@ -18,12 +18,16 @@ namespace Twilio.Model
 {
 	public class CallOptions
 	{
-		public string Caller { get; set; }
-		public string Called { get; set; }
+		public string From { get; set; }
+		public string To { get; set; }
 		public string Url { get; set; }
+		public string StatusCallback { get; set; }
+		public HttpMethod? StatusCallbackMethod { get; set; }
 		public HttpMethod? Method { get; set; }
 		public string SendDigits { get; set; }
 		public IfMachine? IfMachine { get; set; }
 		public int? Timeout { get; set; }
+		public string FallbackUrl { get; set; }
+		public HttpMethod? FallbackMethod { get; set; }
 	}
 }

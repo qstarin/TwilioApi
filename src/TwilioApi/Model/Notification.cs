@@ -25,6 +25,7 @@ namespace Twilio.Model
 		public DateTime DateUpdated { get; set; }
 		public string AccountSid { get; set; }
 		public string CallSid { get; set; }
+		public string ApiVersion { get; set; }
 		public int Log { get; set; }
 		public string ErrorCode { get; set; }
 		public string MoreInfo { get; set; }

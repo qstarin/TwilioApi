@@ -24,9 +24,16 @@ namespace Twilio.Model
 		public DateTime DateCreated { get; set; }
 		public DateTime DateUpdated { get; set; }
 		public string FriendlyName { get; set; }
-		public int Status { get; set; }
-		public string StatusText { get; set; }
+		public string Status { get; set; }
 		public string AuthToken { get; set; }
-		public string Type { get; set; }
+	}
+
+	public class AccountResult
+	{
+		public AccountList Accounts { get; set; }
+	}
+
+	public class AccountList : TwilioListBase<Account>
+	{
 	}
 }
