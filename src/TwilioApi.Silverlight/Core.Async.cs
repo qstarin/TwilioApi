@@ -32,12 +32,12 @@ namespace Twilio
 			_client.ExecuteAsync<T>(request, (response) =>
 			{
 #if WINDOWS_PHONE
-				var dispatcher = Deployment.Current.Dispatcher;
-				dispatcher.BeginInvoke(() => {
+				//var dispatcher = Deployment.Current.Dispatcher;
+				//dispatcher.BeginInvoke(() => {
 #endif
 					callback(response.Data);
 #if WINDOWS_PHONE
-				});
+				//});
 #endif
 			});
 		}
@@ -48,13 +48,13 @@ namespace Twilio
 			_client.ExecuteAsync(request, (response) =>
 			{
 #if WINDOWS_PHONE
-				var dispatcher = Deployment.Current.Dispatcher;
-				dispatcher.BeginInvoke(() =>
-				{
+				//var dispatcher = Deployment.Current.Dispatcher;
+				//dispatcher.BeginInvoke(() =>
+				//{
 #endif
 					callback(response);
 #if WINDOWS_PHONE
-				});
+				//});
 #endif
 			});
 		}

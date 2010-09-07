@@ -12,7 +12,7 @@ var call = twilio.InitiateOutboundCall("123456790", "5555551212", "http://exampl
 var msg = twilio.SendSmsMessage("5555551212", "1234567890", "Can you believe it's this easy to send an SMS?!");
 
 Silverlight/Windows Phone 7/Asynchronous Requests Sample Usage
-- You can declare async callbacks inline or in a separate method
+- You can declare async callbacks inline or in a seperate method
 
 using Twilio;
 var twilio = new TwilioApi("accountSid", "secretKey");
