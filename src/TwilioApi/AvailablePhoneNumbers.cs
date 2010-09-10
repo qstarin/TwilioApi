@@ -31,15 +31,7 @@ namespace Twilio
 			request.Resource = "Accounts/{AccountSid}/AvailablePhoneNumbers/{IsoCountryCode}/Local";
 			request.AddUrlSegment("IsoCountryCode", isoCountryCode);
 
-			if (options.AreaCode.HasValue()) request.AddParameter("AreaCode", options.AreaCode);
-			if (options.Contains.HasValue()) request.AddParameter("Contains", options.AreaCode);
-			if (options.Distance.HasValue) request.AddParameter("Distance", options.AreaCode);
-			if (options.InLata.HasValue()) request.AddParameter("InLata", options.AreaCode);
-			if (options.InPostalCode.HasValue()) request.AddParameter("InPostalCode", options.AreaCode);
-			if (options.InRateCenter.HasValue()) request.AddParameter("InRateCenter", options.AreaCode);
-			if (options.InRegion.HasValue()) request.AddParameter("InRegion", options.AreaCode);
-			if (options.NearLatLong.HasValue()) request.AddParameter("NearLatLong", options.AreaCode);
-			if (options.NearNumber.HasValue()) request.AddParameter("NearNumber", options.AreaCode);
+			AddNumberSearchParameters(options, request);
 
 			return Execute<AvailablePhoneNumberResult>(request);
 		}

@@ -115,6 +115,7 @@
     <Compile Include="Model\OutgoingCallerIdList.cs" />
     <Compile Include="Model\Participant.cs" />
     <Compile Include="Model\ParticipantList.cs" />
+    <Compile Include="Model\PhoneNumber.cs" />
     <Compile Include="Model\PhoneNumberOptions.cs" />
     <Compile Include="Model\Recording.cs" />
     <Compile Include="Model\RecordingList.cs" />
