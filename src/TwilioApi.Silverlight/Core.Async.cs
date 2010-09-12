@@ -15,6 +15,7 @@
 #endregion
 
 using System;
+using System.Linq;
 using RestSharp;
 using Twilio.Model;
 
@@ -28,7 +29,8 @@ namespace Twilio
 	{
 		public void ExecuteAsync<T>(RestRequest request, Action<T> callback) where T : new()
 		{
-			request.AddParameter("AccountSid", _accountSid, ParameterType.UrlSegment);
+			AddAccountSidIfNotSet(request);
+
 			_client.ExecuteAsync<T>(request, (response) =>
 			{
 #if WINDOWS_PHONE
@@ -42,9 +44,20 @@ namespace Twilio
 			});
 		}
 
+		private void AddAccountSidIfNotSet(RestRequest request)
+		{
+			// Add AccountSid parameter if not already set
+			// check is required to allow retrieving subaccount detail
+			if (!request.Parameters.Any(p => p.Name == "AccountSid" && p.Type == ParameterType.UrlSegment))
+			{
+				request.AddParameter("AccountSid", _accountSid, ParameterType.UrlSegment);
+			}
+		}
+
 		public void ExecuteAsync(RestRequest request, Action<RestResponse> callback)
 		{
-			request.AddParameter("AccountSid", _accountSid, ParameterType.UrlSegment);
+			AddAccountSidIfNotSet(request);
+
 			_client.ExecuteAsync(request, (response) =>
 			{
 #if WINDOWS_PHONE

@@ -1,4 +1,20 @@
-﻿using System;
+﻿#region License
+//   Copyright 2010 John Sheehan
+//
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License. 
+#endregion
+
+using System;
 using RestSharp;
 using RestSharp.Extensions;
 using RestSharp.Validation;
@@ -8,6 +24,12 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
+		/// <summary>
+		/// Search available local phone numbers
+		/// </summary>
+		/// <param name="isoCountryCode">Two-character ISO country code (US or CA)</param>
+		/// <param name="options">Search filter options. Only properties with values set will be used.</param>
+		/// <param name="callback">Method to call upon successful completion</param>
 		public void ListAvailableLocalPhoneNumbers(string isoCountryCode, AvailablePhoneNumberListRequest options, Action<AvailablePhoneNumberResult> callback)
 		{
 			Require.Argument("isoCountryCode", isoCountryCode);
@@ -21,6 +43,11 @@ namespace Twilio
 			ExecuteAsync<AvailablePhoneNumberResult>(request, (response) => callback(response));
 		}
 
+		/// <summary>
+		/// Search available toll-free phone numbers
+		/// </summary>
+		/// <param name="isoCountryCode">Two-character ISO country code (US or CA)</param>
+		/// <param name="callback">Method to call upon successful completion</param>
 		public void ListAvailableTollFreePhoneNumbers(string isoCountryCode, Action<AvailablePhoneNumberResult> callback)
 		{
 			Require.Argument("isoCountryCode", isoCountryCode);
@@ -32,6 +59,12 @@ namespace Twilio
 			ExecuteAsync<AvailablePhoneNumberResult>(request, (response) => callback(response));
 		}
 
+		/// <summary>
+		/// Search available toll-free phone numbers
+		/// </summary>
+		/// <param name="isoCountryCode">Two-character ISO country code (US or CA)</param>
+		/// <param name="contains">Value to use when filtering search. Accepts numbers or characters.</param>
+		/// <param name="callback">Method to call upon successful completion</param>
 		public void ListAvailableTollFreePhoneNumbers(string isoCountryCode, string contains, Action<AvailablePhoneNumberResult> callback)
 		{
 			Require.Argument("isoCountryCode", isoCountryCode);

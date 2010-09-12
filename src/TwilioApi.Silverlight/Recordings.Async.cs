@@ -23,12 +23,12 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public void GetRecordingsAsync(Action<RecordingResult> callback)
+		public void GetRecordings(Action<RecordingResult> callback)
 		{
-			GetRecordingsAsync(null, null, null, null, callback);
+			GetRecordings(null, null, null, null, callback);
 		}
 
-		public void GetRecordingsAsync(string callSid, DateTime? dateCreated, int? pageNumber, int? count, Action<RecordingResult> callback)
+		public void GetRecordings(string callSid, DateTime? dateCreated, int? pageNumber, int? count, Action<RecordingResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Recordings";
@@ -42,7 +42,7 @@ namespace Twilio
 			ExecuteAsync<RecordingResult>(request, (response) => callback(response));
 		}
 
-		public void GetRecordingAsync(string recordingSid, Action<Recording> callback)
+		public void GetRecording(string recordingSid, Action<Recording> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Recordings/{RecordingSid}.xml";
@@ -53,7 +53,7 @@ namespace Twilio
 			ExecuteAsync<Recording>(request, (response) => callback(response));
 		}
 
-		public void DeleteRecordingAsync(string recordingSid, Action<RestResponse> callback)
+		public void DeleteRecording(string recordingSid, Action<RestResponse> callback)
 		{
 			var request = new RestRequest(Method.DELETE);
 			request.Resource = "Accounts/{AccountSid}/Recordings/{RecordingSid}.xml";

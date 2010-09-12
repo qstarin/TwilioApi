@@ -14,6 +14,8 @@
 //   limitations under the License. 
 #endregion
 
+using System;
+using System.Linq;
 using RestSharp;
 using Twilio.Model;
 
@@ -39,14 +41,14 @@ namespace Twilio
 #if FRAMEWORK
 		public T Execute<T>(RestRequest request) where T : new()
 		{
-			request.AddParameter("AccountSid", _accountSid, ParameterType.UrlSegment);
+			AddAccountSidIfNotSet(request);
 			var response = _client.Execute<T>(request);
 			return response.Data;
 		}
 
 		public RestResponse Execute(RestRequest request)
 		{
-			request.AddParameter("AccountSid", _accountSid, ParameterType.UrlSegment);
+			AddAccountSidIfNotSet(request);
 			return _client.Execute(request);
 		}
 #endif

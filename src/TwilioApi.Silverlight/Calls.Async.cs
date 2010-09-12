@@ -24,7 +24,12 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public void GetCallsAsync(Action<CallResult> callback)
+		/// <summary>
+		/// Returns a paged list of phone calls made to and from the account.
+		/// Sorted by DateUpdated with most-recent calls first.
+		/// </summary>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void GetCalls(Action<CallResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Calls";
@@ -32,11 +37,24 @@ namespace Twilio
 			ExecuteAsync<CallResult>(request, (response) => callback(response));
 		}
 
-		public void GetCallsAsync(CallListRequest options, Action<CallResult> callback)
+		/// <summary>
+		/// Returns a paged list of phone calls made to and from the account.
+		/// Sorted by DateUpdated with most-recent calls first.
+		/// </summary>
+		/// <param name="options">List filter options. If an property is set the list will be filtered by that value.</param>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void GetCalls(CallListRequest options, Action<CallResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Calls";
 
+			AddCallListOptions(options, request);
+
+			ExecuteAsync<CallResult>(request, (response) => callback(response));
+		}
+
+		private void AddCallListOptions(CallListRequest options, RestRequest request)
+		{
 			if (options.From.HasValue()) request.AddParameter("From", options.From);
 			if (options.To.HasValue()) request.AddParameter("To", options.To);
 			if (options.Status.HasValue) request.AddParameter("Status", options.Status);
@@ -51,11 +69,14 @@ namespace Twilio
 
 			if (options.Count.HasValue) request.AddParameter("num", options.Count.Value);
 			if (options.PageNumber.HasValue) request.AddParameter("page", options.PageNumber.Value);
-
-			ExecuteAsync<CallResult>(request, (response) => callback(response));
 		}
 
-		public void GetCallAsync(string callSid, Action<Call> callback)
+		/// <summary>
+		/// Returns the single Call resource identified by {CallSid}
+		/// </summary>
+		/// <param name="callSid">The Sid of the Call resource to retrieve</param>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void GetCall(string callSid, Action<Call> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Calls/{CallSid}";
@@ -66,44 +87,29 @@ namespace Twilio
 			ExecuteAsync<Call>(request, (response) => callback(response));
 		}
 
-		public void GetCallSegmentsAsync(string callSid, Action<CallResult> callback)
+		/// <summary>
+		/// Initiates a new phone call.
+		/// </summary>
+		/// <param name="from">The phone number to use as the caller id. Format with a '+' and country code e.g., +16175551212 (E.164 format). Must be a Twilio number or a valid outgoing caller id for your account.</param>
+		/// <param name="to">The number to call formatted with a '+' and country code e.g., +16175551212 (E.164 format). Twilio will also accept unformatted US numbers e.g., (415) 555-1212, 415-555-1212.</param>
+		/// <param name="url">The fully qualified URL that should be consulted when the call connects. Just like when you set a URL for your inbound calls. URL should return TwiML.</param>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void InitiateOutboundCall(string from, string to, string url, Action<Call> callback)
 		{
-			GetCallSegmentsAsync(callSid, null, null, callback);
+			InitiateOutboundCall(from, to, url, null, callback);
 		}
 
-		public void GetCallSegmentsAsync(string callSid, int? pageNumber, int? count, Action<CallResult> callback)
+		/// <summary>
+		/// Initiates a new phone call.
+		/// </summary>
+		/// <param name="from">The phone number to use as the caller id. Format with a '+' and country code e.g., +16175551212 (E.164 format). Must be a Twilio number or a valid outgoing caller id for your account.</param>
+		/// <param name="to">The number to call formatted with a '+' and country code e.g., +16175551212 (E.164 format). Twilio will also accept unformatted US numbers e.g., (415) 555-1212, 415-555-1212.</param>
+		/// <param name="url">The fully qualified URL that should be consulted when the call connects. Just like when you set a URL for your inbound calls. URL should return TwiML.</param>
+		/// <param name="statusCallback">A URL that Twilio will request when the call ends to notify your app.</param>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void InitiateOutboundCall(string from, string to, string url, string statusCallback, Action<Call> callback)
 		{
-			var request = new RestRequest();
-			request.Resource = "Accounts/{AccountSid}/Calls/{CallSid}/Segments";
-
-			request.AddParameter("CallSid", callSid, ParameterType.UrlSegment);
-
-			if (pageNumber.HasValue) request.AddParameter("page", pageNumber.Value);
-			if (count.HasValue) request.AddParameter("num", count.Value);
-
-			ExecuteAsync<CallResult>(request, (response) => callback(response));
-		}
-
-		public void GetCallSegmentAsync(string callSid, string callSegmentSid, Action<Call> callback)
-		{
-			var request = new RestRequest();
-			request.Resource = "Accounts/{AccountSid}/Calls/{CallSid}/Segments/{CallSegmentSid}";
-			request.RootElement = "Call";
-
-			request.AddParameter("CallSid", callSid, ParameterType.UrlSegment);
-			request.AddParameter("CallSegmentSid", callSegmentSid, ParameterType.UrlSegment);
-
-			ExecuteAsync<Call>(request, (response) => callback(response));
-		}
-
-		public void InitiateOutboundCallAsync(string from, string to, string url, Action<Call> callback)
-		{
-			InitiateOutboundCallAsync(from, to, url, null, callback);
-		}
-
-		public void InitiateOutboundCallAsync(string from, string to, string url, string statusCallback, Action<Call> callback)
-		{
-			InitiateOutboundCallAsync(new CallOptions
+			InitiateOutboundCall(new CallOptions
 			{
 				From = from,
 				To = to,
@@ -113,7 +119,12 @@ namespace Twilio
 			callback);
 		}
 
-		public void InitiateOutboundCallAsync(CallOptions options, Action<Call> callback)
+		/// <summary>
+		/// Initiates a new phone call.
+		/// </summary>
+		/// <param name="options">Call settings. Only properties with values set will be used.</param>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void InitiateOutboundCall(CallOptions options, Action<Call> callback)
 		{
 			Require.Argument("From", options.From);
 			Require.Argument("To", options.To);
@@ -123,6 +134,13 @@ namespace Twilio
 			request.Resource = "Accounts/{AccountSid}/Calls";
 			request.RootElement = "Calls";
 
+			AddCallOptions(options, request);
+			
+			ExecuteAsync<Call>(request, (response) => callback(response));
+		}
+
+		private static void AddCallOptions(CallOptions options, RestRequest request)
+		{
 			request.AddParameter("From", options.From);
 			request.AddParameter("To", options.To);
 			request.AddParameter("Url", options.Url);
@@ -135,10 +153,15 @@ namespace Twilio
 			if (options.SendDigits.HasValue()) request.AddParameter("SendDigits", options.SendDigits);
 			if (options.IfMachine.HasValue) request.AddParameter("IfMachine", options.IfMachine.Value);
 			if (options.Timeout.HasValue) request.AddParameter("Timeout", options.Timeout.Value);
-			ExecuteAsync<Call>(request, (response) => callback(response));
 		}
 
-		public void HangupCallAsync(string callSid, HangupStyle style, Action<Call> callback)
+		/// <summary>
+		/// Hangs up a call in progress.
+		/// </summary>
+		/// <param name="callSid">The Sid of the call to hang up.</param>
+		/// <param name="style">'Canceled' will attempt to hangup calls that are queued or ringing but not affect calls already in progress. 'Completed' will attempt to hang up a call even if it's already in progress.</param>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void HangupCall(string callSid, HangupStyle style, Action<Call> callback)
 		{
 			Require.Argument("CallSid", callSid);
 
@@ -152,7 +175,14 @@ namespace Twilio
 			ExecuteAsync<Call>(request, (response) => callback(response));
 		}
 
-		public void RedirectCallAsync(string callSid, string currentUrl, Method? currentMethod, Action<Call> callback)
+		/// <summary>
+		/// Redirect a call in progress to a new TwiML URL
+		/// </summary>
+		/// <param name="callSid">The Sid of the call to redirect</param>
+		/// <param name="redirectUrl">The URL to redirect the call to.</param>
+		/// <param name="redirectMethod">The HTTP method to use when requesting the redirectUrl</param>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void RedirectCall(string callSid, string currentUrl, Method? currentMethod, Action<Call> callback)
 		{
 			Require.Argument("CallSid", callSid);
 			Require.Argument("CurrentUrl", currentUrl);

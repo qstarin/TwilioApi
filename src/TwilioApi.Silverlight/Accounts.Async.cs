@@ -22,7 +22,11 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public void GetAccountAsync(Action<Account> callback)
+		/// <summary>
+		/// Retrieve the account details for the currently authenticated account
+		/// </summary>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void GetAccount(Action<Account> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}";
@@ -31,16 +35,26 @@ namespace Twilio
 			ExecuteAsync<Account>(request, (response) => { callback(response); });
 		}
 
-		public void UpdateAccountNameAsync(string friendlyName, Action<Account> callback)
+		/// <summary>
+		/// Retrieve the account details for a subaccount
+		/// </summary>
+		/// <param name="accountSid">The Sid of the subaccount to retrieve</param>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void GetAccount(string accountSid, Action<Account> callback)
 		{
-			var request = new RestRequest(Method.POST);
+			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}";
 			request.RootElement = "Account";
-			request.AddParameter("FriendlyName", friendlyName);
+
+			request.AddUrlSegment("AccountSid", accountSid);
 
 			ExecuteAsync<Account>(request, (response) => { callback(response); });
 		}
 
+		/// <summary>
+		/// List all subaccounts created for the authenticated account
+		/// </summary>
+		/// <param name="callback">Method to call upon successful completion</param>
 		public void ListSubAccounts(Action<AccountResult> callback)
 		{
 			var request = new RestRequest();
@@ -49,6 +63,11 @@ namespace Twilio
 			ExecuteAsync<AccountResult>(request, (response) => { callback(response); });
 		}
 
+		/// <summary>
+		/// Creates a new subaccount under the authenticated account
+		/// </summary>
+		/// <param name="friendlyName">Name associated with this account for your own reference (can be empty string)</param>
+		/// <param name="callback">Method to call upon successful completion</param>
 		public void CreateSubAccount(Action<Account> callback)
 		{
 			var request = new RestRequest(Method.POST);
@@ -58,5 +77,19 @@ namespace Twilio
 			ExecuteAsync<Account>(request, (response) => { callback(response); });
 		}
 
+		/// <summary>
+		/// Update the friendly name associated with the currently authenticated account
+		/// </summary>
+		/// <param name="friendlyName">Name to use when updating</param>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void UpdateAccountName(string friendlyName, Action<Account> callback)
+		{
+			var request = new RestRequest(Method.POST);
+			request.Resource = "Accounts/{AccountSid}";
+			request.RootElement = "Account";
+			request.AddParameter("FriendlyName", friendlyName);
+
+			ExecuteAsync<Account>(request, (response) => { callback(response); });
+		}
 	}
 }

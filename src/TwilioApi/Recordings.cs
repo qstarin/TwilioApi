@@ -23,11 +23,22 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
+		/// <summary>
+		/// Returns a list of Recordings, each representing a recording generated during the course of a phone call. The list includes paging information.
+		/// </summary>
 		public RecordingResult GetRecordings()
 		{
 			return GetRecordings(null, null, null, null);
 		}
 
+		/// <summary>
+		/// Returns a filtered list of Recordings, each representing a recording generated during the course of a phone call. The list includes paging information.
+		/// </summary>
+		/// <param name="callSid"></param>
+		/// <param name="dateCreated"></param>
+		/// <param name="pageNumber"></param>
+		/// <param name="count"></param>
+		/// <returns></returns>
 		public RecordingResult GetRecordings(string callSid, DateTime? dateCreated, int? pageNumber, int? count)
 		{
 			var request = new RestRequest();

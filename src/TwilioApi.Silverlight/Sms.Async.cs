@@ -24,7 +24,7 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public void GetSmsMessageAsync(string smsMessageSid, Action<SmsMessage> callback)
+		public void GetSmsMessage(string smsMessageSid, Action<SmsMessage> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/SMS/Messages/{SMSMessageSid}";
@@ -34,12 +34,12 @@ namespace Twilio
 			ExecuteAsync<SmsMessage>(request, (response) => callback(response));
 		}
 
-		public void GetSmsMessagesAsync(Action<SmsMessageResult> callback)
+		public void GetSmsMessages(Action<SmsMessageResult> callback)
 		{
-			GetSmsMessagesAsync(null, null, null, null, null, callback);
+			GetSmsMessages(null, null, null, null, null, callback);
 		}
 
-		public void GetSmsMessagesAsync(string to, string from, DateTime? dateSent, int? pageNumber, int? count, Action<SmsMessageResult> callback)
+		public void GetSmsMessages(string to, string from, DateTime? dateSent, int? pageNumber, int? count, Action<SmsMessageResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/SMS/Messages";
@@ -54,12 +54,12 @@ namespace Twilio
 			ExecuteAsync<SmsMessageResult>(request, (response) => callback(response));
 		}
 
-		public void SendSmsMessageAsync(string from, string to, string body, Action<SmsMessage> callback)
+		public void SendSmsMessage(string from, string to, string body, Action<SmsMessage> callback)
 		{
-			SendSmsMessageAsync(from, to, body, null, callback);
+			SendSmsMessage(from, to, body, null, callback);
 		}
 
-		public void SendSmsMessageAsync(string from, string to, string body, string statusCallback, Action<SmsMessage> callback)
+		public void SendSmsMessage(string from, string to, string body, string statusCallback, Action<SmsMessage> callback)
 		{
 			Validate.IsValidLength(body, 160);
 			Require.Argument("from", from);

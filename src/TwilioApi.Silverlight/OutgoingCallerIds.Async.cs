@@ -24,7 +24,12 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public void GetOutgoingCallerIdAsync(string outgoingCallerIdSid, Action<OutgoingCallerId> callback)
+		/// <summary>
+		/// Retrieve the details for an existing validated Outgoing Caller ID entry
+		/// </summary>
+		/// <param name="outgoingCallerIdSid">The Sid of the entry to retrieve</param>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void GetOutgoingCallerId(string outgoingCallerIdSid, Action<OutgoingCallerId> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/OutgoingCallerIds/{OutgoingCallerIdSid}";
@@ -34,12 +39,25 @@ namespace Twilio
 			ExecuteAsync<OutgoingCallerId>(request, (response) => callback(response));
 		}
 
-		public void GetOutgoingCallerIdsAsync(Action<OutgoingCallerIdResult> callback)
+		/// <summary>
+		/// Returns a list of validated outgoing caller IDs. The list includes paging information.
+		/// </summary>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void GetOutgoingCallerIds(Action<OutgoingCallerIdResult> callback)
 		{
-			GetOutgoingCallerIdsAsync(null, null, null, null, callback);
+			GetOutgoingCallerIds(null, null, null, null, callback);
 		}
 
-		public void GetOutgoingCallerIdsAsync(string phoneNumber, string friendlyName, int? pageNumber, int? count, Action<OutgoingCallerIdResult> callback)
+		/// <summary>
+		/// Returns a filtered list of validated outgoing caller IDs. The list includes paging information.
+		/// </summary>
+		/// <param name="phoneNumber"></param>
+		/// <param name="friendlyName"></param>
+		/// <param name="pageNumber"></param>
+		/// <param name="count"></param>
+		/// <returns></returns>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void GetOutgoingCallerIds(string phoneNumber, string friendlyName, int? pageNumber, int? count, Action<OutgoingCallerIdResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/OutgoingCallerIds";
@@ -53,7 +71,14 @@ namespace Twilio
 			ExecuteAsync<OutgoingCallerIdResult>(request, (response) => callback(response));
 		}
 
-		public void AddOutgoingCallerIdAsync(string phoneNumber, string friendlyName, int? callDelay, Action<ValidationRequest> callback)
+		/// <summary>
+		/// Adds a new validated CallerID to your account. After making this request, Twilio will return to you a validation code and dial the phone number given to perform validation. The code returned must be entered via the phone before the CallerID will be added to your account.
+		/// </summary>
+		/// <param name="phoneNumber">The phone number to verify. Should be formatted with a '+' and country code e.g., +16175551212 (E.164 format). Twilio will also accept unformatted US numbers e.g., (415) 555-1212, 415-555-1212.</param>
+		/// <param name="friendlyName">A human readable description for the new caller ID with maximum length 64 characters. Defaults to a nicely formatted version of the number.</param>
+		/// <param name="callDelay">The number of seconds, between 0 and 60, to delay before initiating the validation call. Defaults to 0.</param>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void AddOutgoingCallerId(string phoneNumber, string friendlyName, int? callDelay, Action<ValidationRequest> callback)
 		{
 			Require.Argument("PhoneNumber", phoneNumber);
 			if (callDelay.HasValue) Validate.IsBetween(callDelay.Value, 0, 60);
@@ -69,7 +94,13 @@ namespace Twilio
 			ExecuteAsync<ValidationRequest>(request, (response) => callback(response));
 		}
 
-		public void UpdateOutgoingCallerIdNameAsync(string outgoingCallerIdSid, string friendlyName, Action<OutgoingCallerId> callback)
+		/// <summary>
+		/// Update the FriendlyName associated with a validated outgoing caller ID entry
+		/// </summary>
+		/// <param name="outgoingCallerIdSid">The Sid of the outgoing caller ID entry</param>
+		/// <param name="friendlyName">The name to update the FriendlyName to</param>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void UpdateOutgoingCallerIdName(string outgoingCallerIdSid, string friendlyName, Action<OutgoingCallerId> callback)
 		{
 			Require.Argument("OutgoingCallerIdSid", outgoingCallerIdSid);
 			Require.Argument("FriendlyName", friendlyName);
@@ -85,7 +116,12 @@ namespace Twilio
 			ExecuteAsync<OutgoingCallerId>(request, (response) => callback(response));
 		}
 
-		public void DeleteOutgoingCallerIdAsync(string outgoingCallerIdSid, Action<RestResponse> callback)
+		/// <summary>
+		/// Remove a validated outgoing caller ID from the current account
+		/// </summary>
+		/// <param name="outgoingCallerIdSid">The Sid to remove</param>
+		/// <param name="callback">Method to call upon successful completion</param>
+		public void DeleteOutgoingCallerId(string outgoingCallerIdSid, Action<RestResponse> callback)
 		{
 			Require.Argument("OutgoingCallerIdSid", outgoingCallerIdSid);
 			var request = new RestRequest(Method.DELETE);

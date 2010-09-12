@@ -14,6 +14,7 @@
 //   limitations under the License. 
 #endregion
 
+using System;
 using RestSharp;
 using RestSharp.Extensions;
 using RestSharp.Validation;
@@ -23,6 +24,10 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
+		/// <summary>
+		/// Retrieve the details for an existing validated Outgoing Caller ID entry
+		/// </summary>
+		/// <param name="outgoingCallerIdSid">The Sid of the entry to retrieve</param>
 		public OutgoingCallerId GetOutgoingCallerId(string outgoingCallerIdSid)
 		{
 			var request = new RestRequest();
@@ -33,11 +38,22 @@ namespace Twilio
 			return Execute<OutgoingCallerId>(request);
 		}
 
+		/// <summary>
+		/// Returns a list of validated outgoing caller IDs. The list includes paging information.
+		/// </summary>
 		public OutgoingCallerIdResult GetOutgoingCallerIds()
 		{
 			return GetOutgoingCallerIds(null, null, null, null);
 		}
 
+		/// <summary>
+		/// Returns a filtered list of validated outgoing caller IDs. The list includes paging information.
+		/// </summary>
+		/// <param name="phoneNumber"></param>
+		/// <param name="friendlyName"></param>
+		/// <param name="pageNumber"></param>
+		/// <param name="count"></param>
+		/// <returns></returns>
 		public OutgoingCallerIdResult GetOutgoingCallerIds(string phoneNumber, string friendlyName, int? pageNumber, int? count)
 		{
 			var request = new RestRequest();
@@ -52,6 +68,12 @@ namespace Twilio
 			return Execute<OutgoingCallerIdResult>(request);
 		}
 
+		/// <summary>
+		/// Adds a new validated CallerID to your account. After making this request, Twilio will return to you a validation code and dial the phone number given to perform validation. The code returned must be entered via the phone before the CallerID will be added to your account.
+		/// </summary>
+		/// <param name="phoneNumber">The phone number to verify. Should be formatted with a '+' and country code e.g., +16175551212 (E.164 format). Twilio will also accept unformatted US numbers e.g., (415) 555-1212, 415-555-1212.</param>
+		/// <param name="friendlyName">A human readable description for the new caller ID with maximum length 64 characters. Defaults to a nicely formatted version of the number.</param>
+		/// <param name="callDelay">The number of seconds, between 0 and 60, to delay before initiating the validation call. Defaults to 0.</param>
 		public ValidationRequest AddOutgoingCallerId(string phoneNumber, string friendlyName, int? callDelay)
 		{
 			Require.Argument("PhoneNumber", phoneNumber);
@@ -68,6 +90,11 @@ namespace Twilio
 			return Execute<ValidationRequest>(request);
 		}
 
+		/// <summary>
+		/// Update the FriendlyName associated with a validated outgoing caller ID entry
+		/// </summary>
+		/// <param name="outgoingCallerIdSid">The Sid of the outgoing caller ID entry</param>
+		/// <param name="friendlyName">The name to update the FriendlyName to</param>
 		public OutgoingCallerId UpdateOutgoingCallerIdName(string outgoingCallerIdSid, string friendlyName)
 		{
 			Require.Argument("OutgoingCallerIdSid", outgoingCallerIdSid);
@@ -84,6 +111,10 @@ namespace Twilio
 			return Execute<OutgoingCallerId>(request);
 		}
 
+		/// <summary>
+		/// Remove a validated outgoing caller ID from the current account
+		/// </summary>
+		/// <param name="outgoingCallerIdSid">The Sid to remove</param>
 		public RestResponse DeleteOutgoingCallerId(string outgoingCallerIdSid)
 		{
 			Require.Argument("OutgoingCallerIdSid", outgoingCallerIdSid);

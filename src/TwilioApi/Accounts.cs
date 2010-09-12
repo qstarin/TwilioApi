@@ -14,6 +14,7 @@
 //   limitations under the License. 
 #endregion
 
+using System;
 using RestSharp;
 using Twilio.Model;
 
@@ -21,6 +22,9 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
+		/// <summary>
+		/// Retrieve the account details for the currently authenticated account
+		/// </summary>
 		public Account GetAccount()
 		{
 			var request = new RestRequest();
@@ -30,6 +34,24 @@ namespace Twilio
 			return Execute<Account>(request);
 		}
 
+		/// <summary>
+		/// Retrieve the account details for a subaccount
+		/// </summary>
+		/// <param name="accountSid">The Sid of the subaccount to retrieve</param>
+		public Account GetAccount(string accountSid)
+		{
+			var request = new RestRequest();
+			request.Resource = "Accounts/{AccountSid}";
+			request.RootElement = "Account";
+
+			request.AddUrlSegment("AccountSid", accountSid);
+
+			return Execute<Account>(request);
+		}
+
+		/// <summary>
+		/// List all subaccounts created for the authenticated account
+		/// </summary>
 		public AccountResult ListSubAccounts()
 		{
 			var request = new RestRequest();
@@ -38,15 +60,25 @@ namespace Twilio
 			return Execute<AccountResult>(request);
 		}
 
-		public Account CreateSubAccount()
+		/// <summary>
+		/// Creates a new subaccount under the authenticated account
+		/// </summary>
+		/// <param name="friendlyName">Name associated with this account for your own reference (can be empty string)</param>
+		public Account CreateSubAccount(string friendlyName)
 		{
 			var request = new RestRequest(Method.POST);
 			request.Resource = "Accounts";
 			request.RootElement = "Account";
 
+			request.AddParameter("FriendlyName", friendlyName);
+
 			return Execute<Account>(request);
 		}
 
+		/// <summary>
+		/// Update the friendly name associated with the currently authenticated account
+		/// </summary>
+		/// <param name="friendlyName">Name to use when updating</param>
 		public Account UpdateAccountName(string friendlyName)
 		{
 			var request = new RestRequest(Method.POST);

@@ -22,12 +22,12 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
-		public void GetTranscriptionsAsync(Action<TranscriptionResult> callback)
+		public void GetTranscriptions(Action<TranscriptionResult> callback)
 		{
-			GetTranscriptionsAsync(null, null, callback);
+			GetTranscriptions(null, null, callback);
 		}
 
-		public void GetTranscriptionsAsync(int? pageNumber, int? count, Action<TranscriptionResult> callback)
+		public void GetTranscriptions(int? pageNumber, int? count, Action<TranscriptionResult> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Transcriptions";
@@ -38,7 +38,7 @@ namespace Twilio
 			ExecuteAsync<TranscriptionResult>(request, (response) => callback(response));
 		}
 
-		public void GetTranscriptionAsync(string recordingSid, string transcriptionSid, Action<Transcription> callback)
+		public void GetTranscription(string recordingSid, string transcriptionSid, Action<Transcription> callback)
 		{
 			var request = new RestRequest();
 			request.Resource = "Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{TranscriptionSid}";

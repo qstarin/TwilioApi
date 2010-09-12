@@ -14,6 +14,7 @@
 //   limitations under the License. 
 #endregion
 
+using System;
 using RestSharp;
 using RestSharp.Extensions;
 using RestSharp.Validation;
@@ -23,6 +24,11 @@ namespace Twilio
 {
 	public partial class TwilioApi
 	{
+		/// <summary>
+		/// Search available local phone numbers
+		/// </summary>
+		/// <param name="isoCountryCode">Two-character ISO country code (US or CA)</param>
+		/// <param name="options">Search filter options. Only properties with values set will be used.</param>
 		public AvailablePhoneNumberResult ListAvailableLocalPhoneNumbers(string isoCountryCode, AvailablePhoneNumberListRequest options)
 		{
 			Require.Argument("isoCountryCode", isoCountryCode);
@@ -36,6 +42,10 @@ namespace Twilio
 			return Execute<AvailablePhoneNumberResult>(request);
 		}
 
+		/// <summary>
+		/// Search available toll-free phone numbers
+		/// </summary>
+		/// <param name="isoCountryCode">Two-character ISO country code (US or CA)</param>
 		public AvailablePhoneNumberResult ListAvailableTollFreePhoneNumbers(string isoCountryCode)
 		{
 			Require.Argument("isoCountryCode", isoCountryCode);
@@ -47,6 +57,11 @@ namespace Twilio
 			return Execute<AvailablePhoneNumberResult>(request);
 		}
 
+		/// <summary>
+		/// Search available toll-free phone numbers
+		/// </summary>
+		/// <param name="isoCountryCode">Two-character ISO country code (US or CA)</param>
+		/// <param name="contains">Value to use when filtering search. Accepts numbers or characters.</param>
 		public AvailablePhoneNumberResult ListAvailableTollFreePhoneNumbers(string isoCountryCode, string contains)
 		{
 			Require.Argument("isoCountryCode", isoCountryCode);

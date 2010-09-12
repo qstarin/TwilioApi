@@ -56,7 +56,7 @@ namespace Twilio
 
 		public SmsMessage SendSmsMessage(string from, string to, string body)
 		{
-			return SendSmsMessage(from, to, body, null);
+			return SendSmsMessage(from, to, body, string.Empty);
 		}
 
 		public SmsMessage SendSmsMessage(string from, string to, string body, string statusCallback)
