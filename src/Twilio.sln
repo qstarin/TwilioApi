@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwilioApi.Silverlight", "Tw
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwilioApi.WindowsPhone", "TwilioApi.WindowsPhone\TwilioApi.WindowsPhone.csproj", "{21E25E45-A334-4178-BD5C-5B875A2911FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwilioTest", "..\TwilioTest\TwilioTest.csproj", "{0DB4C88F-B2AF-4FCD-9C24-89298AB2B098}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,16 @@ Global
 		{21E25E45-A334-4178-BD5C-5B875A2911FD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{21E25E45-A334-4178-BD5C-5B875A2911FD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{21E25E45-A334-4178-BD5C-5B875A2911FD}.Release|x86.ActiveCfg = Release|Any CPU
+		{0DB4C88F-B2AF-4FCD-9C24-89298AB2B098}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{0DB4C88F-B2AF-4FCD-9C24-89298AB2B098}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{0DB4C88F-B2AF-4FCD-9C24-89298AB2B098}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{0DB4C88F-B2AF-4FCD-9C24-89298AB2B098}.Debug|x86.ActiveCfg = Debug|x86
+		{0DB4C88F-B2AF-4FCD-9C24-89298AB2B098}.Debug|x86.Build.0 = Debug|x86
+		{0DB4C88F-B2AF-4FCD-9C24-89298AB2B098}.Release|Any CPU.ActiveCfg = Release|x86
+		{0DB4C88F-B2AF-4FCD-9C24-89298AB2B098}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{0DB4C88F-B2AF-4FCD-9C24-89298AB2B098}.Release|Mixed Platforms.Build.0 = Release|x86
+		{0DB4C88F-B2AF-4FCD-9C24-89298AB2B098}.Release|x86.ActiveCfg = Release|x86
+		{0DB4C88F-B2AF-4FCD-9C24-89298AB2B098}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
