@@ -23,7 +23,7 @@ namespace Twilio.Model
 		public SmsMessageList SmsMessages { get; set; }
 	}
 
-	public class SmsMessageList : TwilioListBase<SmsMessage>
+	public class SmsMessageList : TwilioList<SmsMessage>
 	{
 
 	}

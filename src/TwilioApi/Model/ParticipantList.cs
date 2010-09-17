@@ -23,7 +23,7 @@ namespace Twilio.Model
 		public ParticipantList Participants { get; set; }
 	}
 
-	public class ParticipantList : TwilioListBase<Participant>
+	public class ParticipantList : TwilioList<Participant>
 	{
 
 	}

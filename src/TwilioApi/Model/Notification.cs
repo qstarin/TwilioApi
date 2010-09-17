@@ -20,21 +20,69 @@ namespace Twilio.Model
 {
 	public class Notification : TwilioBase
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		public string Sid { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		public DateTime DateCreated { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		public DateTime DateUpdated { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		public string AccountSid { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		public string CallSid { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		public string ApiVersion { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		public int Log { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		public string ErrorCode { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		public string MoreInfo { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		public string MessageText { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		public DateTime MessageDate { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		public string RequestUrl { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		public string RequestMethod { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		public string RequestVariables { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		public string ResponseHeaders { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		public string ResponseBody { get; set; }
 	}
 }

@@ -23,7 +23,7 @@ namespace Twilio.Model
 		public OutgoingCallerIdList OutgoingCallerIds { get; set; }
 	}
 
-	public class OutgoingCallerIdList : TwilioListBase<OutgoingCallerId>
+	public class OutgoingCallerIdList : TwilioList<OutgoingCallerId>
 	{
 
 	}

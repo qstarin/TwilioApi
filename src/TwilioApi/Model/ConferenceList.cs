@@ -20,11 +20,6 @@ namespace Twilio.Model
 {
 	public class ConferenceResult
 	{
-		public ConferenceList Conferences { get; set; }
-	}
-
-	public class ConferenceList : TwilioListBase<Conference>
-	{
-
+		public TwilioList<Conference> Conferences { get; set; }
 	}
 }

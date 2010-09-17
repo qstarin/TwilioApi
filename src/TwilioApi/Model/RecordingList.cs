@@ -23,7 +23,7 @@ namespace Twilio.Model
 		public RecordingList Recordings { get; set; }
 	}
 
-	public class RecordingList : TwilioListBase<Recording>
+	public class RecordingList : TwilioList<Recording>
 	{
 
 	}

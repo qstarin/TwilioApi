@@ -23,7 +23,7 @@ namespace Twilio.Model
 		public TranscriptionList Transcriptions { get; set; }
 	}
 
-	public class TranscriptionList : TwilioListBase<Transcription>
+	public class TranscriptionList : TwilioList<Transcription>
 	{
 
 	}

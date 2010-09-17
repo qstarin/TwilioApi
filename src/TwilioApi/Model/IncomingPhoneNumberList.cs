@@ -20,11 +20,6 @@ namespace Twilio.Model
 {
 	public class IncomingPhoneNumberResult
 	{
-		public IncomingPhoneNumberList IncomingPhoneNumbers { get; set; }
-	}
-
-	public class IncomingPhoneNumberList : TwilioListBase<IncomingPhoneNumber>
-	{
-
+		public TwilioList<IncomingPhoneNumber> IncomingPhoneNumbers { get; set; }
 	}
 }

@@ -20,11 +20,6 @@ namespace Twilio.Model
 {
 	public class CallResult
 	{
-		public CallList Calls { get; set; }
-	}
-
-	public class CallList : TwilioListBase<Call>
-	{
-
+		public TwilioList<Call> Calls { get; set; }
 	}
 }

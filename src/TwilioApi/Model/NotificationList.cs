@@ -23,7 +23,7 @@ namespace Twilio.Model
 		public NotificationList Notifications { get; set; }
 	}
 
-	public class NotificationList : TwilioListBase<Notification>
+	public class NotificationList : TwilioList<Notification>
 	{
 
 	}
